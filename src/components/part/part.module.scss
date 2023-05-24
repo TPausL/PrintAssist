@@ -1,0 +1,33 @@
+.root {
+}
+.part-list-item {
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  display: flex;
+  justify-content: space-around;
+}
+.part-list-item-name {
+  width: 200px;
+  text-align: start;
+  margin: 8px;
+}
+
+.input > div > input {
+  width: 75px !important;
+  font-weight: bold;
+}
+
+/* Chrome, Safari, Edge, Opera */
+.input > div > input::-webkit-outer-spin-button,
+.input > div > input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.input > div > input[type='number'] {
+  -moz-appearance: textfield;
+}
