@@ -3,8 +3,9 @@ import classNames from 'classnames';
 import styles from './part-select.module.scss';
 import { Select2 } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
-import { PartType } from '../../types';
+import { PartType, PartGroup } from '../../types';
 import parts from '../../../part-list.json';
+import { PartSelectMenu } from '../part-select-menu/part-select-menu';
 
 export interface PartSelectProps {
     className?: string;
@@ -21,9 +22,36 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
     console.log(selectedPart);
     return (
         <div className={classNames(styles.root, className)}>
+            <PartSelectMenu
+                items={[
+                    {
+                        group: 'bikes',
+                        index: 1,
+                        items: [
+                            {
+                                file: 'bla',
+                                name: 'Small',
+                                price: 200,
+                                time: 60,
+                                weight: 5,
+                            },
+                            {
+                                file: 'sdfsdf',
+                                name: 'middle',
+                                price: 6,
+                                time: 300,
+                                weight: 6,
+                            },
+                        ],
+                        name: 'Test',
+                        icon: 'presentation',
+                    },
+                ]}
+            />
             <Select2<PartType>
                 filterable={false}
                 items={parts}
+                itemListRenderer={PartSelectMenu}
                 itemRenderer={(p, { handleClick, handleFocus }) => (
                     <MenuItem
                         onClick={handleClick}

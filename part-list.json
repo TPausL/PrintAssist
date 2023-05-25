@@ -1,38 +1,89 @@
 [
   {
-    "name": "Fahrrad Klein",
-    "file": ""
+    "group": "bikes",
+    "index": 0,
+    "name": "Fahrräder",
+    "icon": "bike",
+    "items": [
+      {
+        "name": "Klein",
+        "file": "bike_small.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Mittel",
+        "file": "bike_middle.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Groß",
+        "file": "bike_large.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      }
+    ]
   },
   {
-    "name": "Fahrrad Mittel",
-    "file": ""
+    "group": "dogs",
+    "index": 1,
+    "name": "Hunde",
+    "icon": "dog",
+    "items": [
+      {
+        "name": "Klein",
+        "file": "dog_small.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Mittel",
+        "file": "dog_middle.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Groß",
+        "file": "dog_large.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      }
+    ]
   },
   {
-    "name": "Fahrrad Groß",
-    "file": ""
-  },
-  {
-    "name": "Hund Klein",
-    "file": ""
-  },
-  {
-    "name": "Hund Mittel",
-    "file": ""
-  },
-  {
-    "name": "Hund Groß",
-    "file": ""
-  },
-  {
-    "name": "Haus Klein",
-    "file": ""
-  },
-  {
-    "name": "Haus Mittel",
-    "file": ""
-  },
-  {
-    "name": "Haus Groß",
-    "file": ""
+    "group": "cars",
+    "index": 2,
+    "name": "Autos",
+    "icon": "drive-time",
+    "items": [
+      {
+        "name": "Klein",
+        "file": "car_small.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Mittel",
+        "file": "car_small.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      },
+      {
+        "name": "Groß",
+        "file": "car_large.stl",
+        "price": 0.45,
+        "weight": 6.4,
+        "time": 600
+      }
+    ]
   }
 ]

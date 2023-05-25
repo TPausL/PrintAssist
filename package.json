@@ -14,12 +14,15 @@
     "@blueprintjs/popover2": "^1.14.5",
     "@blueprintjs/select": "^4.9.18",
     "classnames": "^2.3.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.194",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
     "@vitejs/plugin-react": "^4.0.0",
