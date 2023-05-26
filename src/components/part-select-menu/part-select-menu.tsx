@@ -8,7 +8,7 @@ import { filter, sortBy, upperFirst } from 'lodash';
 import moment from 'moment';
 import { render } from 'react-dom';
 import { useState } from 'react';
-import partList from "../../../part-list"
+import partList from "../../../part-list.json"
 
 
 /**

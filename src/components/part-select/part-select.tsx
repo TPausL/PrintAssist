@@ -4,11 +4,10 @@ import styles from './part-select.module.scss';
 import { ItemListRendererProps, Select2 } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import { PartType, PartGroup } from '../../types';
-import parts from '../../../part-list';
 import { PartSelectMenu } from '../part-select-menu/part-select-menu';
 import { flatten, map } from 'lodash';
 import { PartSelectItem } from '../part-select-item/part-select-item';
-import partList from '../../../part-list';
+import partList from '../../../part-list.json';
 
 export interface PartSelectProps {
     className?: string;

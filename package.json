@@ -4,9 +4,10 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
+    "dev": "yarpm gen-times && vite",
+    "build": "yarpm gen-times && tsc && vite build",
+    "preview": "vite preview",
+    "gen-times": "node gen-times.js"
   },
   "dependencies": {
     "@blueprintjs/core": "^4.19.3",
@@ -22,6 +23,7 @@
     "vite-plugin-svgr": "^3.2.0"
   },
   "devDependencies": {
+    "yarpm": "^1.2.0",
     "@types/lodash": "^4.14.194",
     "@types/react": "^18.2.6",
     "@types/react-dom": "^18.2.4",
