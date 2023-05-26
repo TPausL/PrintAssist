@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { createElement, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './part-select.module.scss';
-import { Select2 } from '@blueprintjs/select';
+import { ItemListRendererProps, Select2 } from '@blueprintjs/select';
 import { MenuItem, Button } from '@blueprintjs/core';
 import { PartType, PartGroup } from '../../types';
-import parts from '../../../part-list.json';
+import parts from '../../../part-list';
 import { PartSelectMenu } from '../part-select-menu/part-select-menu';
+import { flatten, map } from 'lodash';
+import { PartSelectItem } from '../part-select-item/part-select-item';
+import partList from '../../../part-list';
 
 export interface PartSelectProps {
     className?: string;
@@ -17,49 +20,14 @@ export interface PartSelectProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
-    console.log(parts);
     const [selectedPart, setSelectedPart] = useState<PartType | undefined>();
-    console.log(selectedPart);
     return (
         <div className={classNames(styles.root, className)}>
-            <PartSelectMenu
-                items={[
-                    {
-                        group: 'bikes',
-                        index: 1,
-                        items: [
-                            {
-                                file: 'bla',
-                                name: 'Small',
-                                price: 200,
-                                time: 60,
-                                weight: 5,
-                            },
-                            {
-                                file: 'sdfsdf',
-                                name: 'middle',
-                                price: 6,
-                                time: 300,
-                                weight: 6,
-                            },
-                        ],
-                        name: 'Test',
-                        icon: 'presentation',
-                    },
-                ]}
-            />
             <Select2<PartType>
                 filterable={false}
-                items={parts}
+                items={partList.parts}
                 itemListRenderer={PartSelectMenu}
-                itemRenderer={(p, { handleClick, handleFocus }) => (
-                    <MenuItem
-                        onClick={handleClick}
-                        onFocus={handleFocus}
-                        key={p.name}
-                        text={p.name}
-                    />
-                )}
+                itemRenderer={PartSelectItem}
                 onItemSelect={(s) => {
                     console.log(s);
                     setSelectedPart(s);
