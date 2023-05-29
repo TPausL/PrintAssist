@@ -1,58 +1,44 @@
 {
   "groups": [
-    {
-      "index": 0,
-      "name": "Fahrräder",
-      "id": "bikes",
-      "icon": "cycle"
-    },
-    {
-      "id": "dogs",
-      "index": 1,
-      "name": "Hunde"
-    },
-    {
-      "id": "cars",
-      "index": 2,
-      "name": "Autos",
-      "icon": "drive-time"
-    }
+    { "index": 0, "name": "Fahrräder", "id": "bikes", "icon": "cycle" },
+    { "id": "dogs", "index": 1, "name": "Hunde" },
+    { "id": "cars", "index": 2, "name": "Autos", "icon": "drive-time" }
   ],
   "parts": [
     {
       "name": "kleines Fahrrad",
       "size": "klein",
       "file": "bike_small.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.02,
+      "weight": 0.78,
+      "time": 1011,
       "group": "bikes"
     },
     {
       "name": "mittleres Fahrrad",
       "size": "mittel",
       "file": "bike_middle.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.04,
+      "weight": 1.4,
+      "time": 1619,
       "group": "bikes"
     },
     {
       "name": "großes Fahrrad",
       "size": "groß",
       "file": "bike_large.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.06,
+      "weight": 2.25,
+      "time": 2256,
       "group": "bikes"
     },
     {
       "name": "kleiner Hund",
       "size": "klein",
       "file": "dog_small.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.04,
+      "weight": 1.51,
+      "time": 1240,
       "group": "dogs"
     },
     {
@@ -60,43 +46,43 @@
       "name": "mittlere Hund",
       "size": "mittel",
       "file": "dog_middle.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600
+      "price": 0.07,
+      "weight": 2.47,
+      "time": 1797
     },
     {
       "name": "großer Hund",
       "size": "groß",
       "file": "dog_large.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.1,
+      "weight": 3.65,
+      "time": 2470,
       "group": "dogs"
     },
     {
       "size": "klein",
       "file": "car_small.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.02,
+      "weight": 0.82,
+      "time": 862,
       "name": "kleines Auto",
       "group": "cars"
     },
     {
       "size": "mittel",
       "file": "car_middle.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.04,
+      "weight": 1.46,
+      "time": 1296,
       "name": "mittleres Auto",
       "group": "cars"
     },
     {
       "size": "groß",
       "file": "car_large.stl",
-      "price": 0.45,
-      "weight": 6.4,
-      "time": 600,
+      "price": 0.06,
+      "weight": 2.34,
+      "time": 1862,
       "name": "großes Auto",
       "group": "cars"
     }

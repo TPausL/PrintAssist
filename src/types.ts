@@ -9,6 +9,7 @@ export interface PartType {
     price: number;
     group: PartGroup['id'];
 }
+export type ListPart = PartType & { count: number }
 export interface PartGroup {
     id: string;
     name: string;

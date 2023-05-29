@@ -15,7 +15,7 @@ export type PartSelectItemProps = ItemRenderer<PartType> & {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const PartSelectItem: ItemRenderer<PartType> = (p ,{ handleClick  }) => {
-    console.log(p.name)
+
     return <><div className={styles.part} onClick={handleClick}>
                 <div className={styles['part-top-row']}>
                     <span className={styles['part-name']}>{upperFirst(p.size)}</span>

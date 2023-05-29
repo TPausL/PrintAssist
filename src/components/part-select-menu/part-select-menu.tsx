@@ -16,7 +16,6 @@ import partList from "../../../part-list.json"
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const PartSelectMenu = ({ renderItem, ...rest }: ItemListRendererProps<PartType>) => {
-    console.log(rest, "rest");
     return (
         <Menu role="listbox" className={styles.root}>
             {sortBy(partList.groups, 'index').map((g,gi) => (
