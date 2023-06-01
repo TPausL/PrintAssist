@@ -16,3 +16,12 @@ export interface PartGroup {
     icon?: IconName;
     index: number;
 }
+
+
+export interface TypedRequestBody<T> extends Express.Request {
+    body: T
+}
+
+export type SliceRequest = TypedRequestBody<{
+    parts: ListPart[];
+}>

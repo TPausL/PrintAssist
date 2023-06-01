@@ -7,6 +7,7 @@ import { PartSelect } from './components/part-select/part-select';
 import { slice } from './slicer';
 import { ListPart, PartType } from './types';
 import axios from "axios"
+import { handlePrint } from './utils';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
@@ -43,7 +44,7 @@ function App() {
                 }}
 
             />
-            {Boolean(parts.length) && <Button onClick={async () => console.log(await axios.post("/slice", {parts })) }>print</Button>}
+            {Boolean(parts.length) && <Button onClick={() => handlePrint(parts)}>print</Button>}
         </div>
     );
 }

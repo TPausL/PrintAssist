@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "run-backend": "tsc --project tsconfig.backend.json && node dist-backend/index.js",
+    "run-backend": "tsc --project tsconfig.backend.json && node dist-backend/backend/index.js",
     "dev": "yarpm gen-times && nodemon",
     "build": "yarpm gen-times && tsc && vite build",
     "preview": "vite preview",
