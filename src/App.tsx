@@ -1,10 +1,12 @@
 import { Button } from '@blueprintjs/core';
-import { filter, includes, isEqual, isEqualWith, map, remove } from 'lodash';
+import { filter, includes, isEqual, isEqualWith, map, merge, remove } from 'lodash';
 import { useState } from 'react';
 import styles from './App.module.scss';
 import { PartList } from './components/part-list/part-list';
 import { PartSelect } from './components/part-select/part-select';
+import { slice } from './slicer';
 import { ListPart, PartType } from './types';
+import axios from "axios"
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
@@ -41,6 +43,7 @@ function App() {
                 }}
 
             />
+            {Boolean(parts.length) && <Button onClick={async () => console.log(await axios.post("/slice", {parts })) }>print</Button>}
         </div>
     );
 }

@@ -1,0 +1,5 @@
+{
+    "watch": "backend",
+    "exec": "npm run run-backend",
+    "ext": "ts,json"
+}

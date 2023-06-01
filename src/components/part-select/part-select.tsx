@@ -28,7 +28,7 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
                 itemListRenderer={PartSelectMenu}
                 itemRenderer={PartSelectItem}
                 onItemSelect={(s) => {
-
+                    onPartAdded(s);
                     setSelectedPart(s);
                 }}
             >
