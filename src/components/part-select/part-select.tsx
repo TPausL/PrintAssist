@@ -29,16 +29,13 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
                 itemRenderer={PartSelectItem}
                 onItemSelect={(s) => {
                     onPartAdded(s);
-                    setSelectedPart(s);
+                    // setSelectedPart(s);
                 }}
             >
                 <Button rightIcon="double-caret-vertical">
                     {selectedPart?.name ?? 'Select a part'}
                 </Button>
             </Select2>
-            <Button onClick={() => selectedPart && onPartAdded(selectedPart)} icon="add">
-                {'Add'}
-            </Button>
         </div>
     );
 };

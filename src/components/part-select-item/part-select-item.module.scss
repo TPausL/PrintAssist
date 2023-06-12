@@ -88,3 +88,10 @@
   width: 50%;
   transform: translate(50%);
 }
+.root {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: space-between;
+  min-width: 200px;
+}
