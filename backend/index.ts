@@ -16,6 +16,11 @@ const mkdirAsync = promisify(fs.mkdir);
 const app = express();
 //app.use(bodyParser.urlencoded({ extended: true }));
 
+//allow all cors origins
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 app.use(express.json());
 
 

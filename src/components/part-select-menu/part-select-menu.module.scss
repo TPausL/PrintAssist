@@ -1,11 +1,7 @@
 :root {
   --headline-color: #42599f !important;
 }
-.root {
-  box-shadow: 3px 3px 6px rgb(117, 117, 117);
-  border-radius: 8;
-  min-width: 400px !important;
-}
+
 
 .menuGroupContainer {
   display: flex;
@@ -102,4 +98,10 @@
 .heading {
   margin-left: 8px;
   line-height: 1;
+}
+.root {
+  border-radius: 8px !important;
+  padding: 8px;
+  box-shadow: 3px 3px 6px rgb(117, 117, 117);
+  min-width: 300px;
 }

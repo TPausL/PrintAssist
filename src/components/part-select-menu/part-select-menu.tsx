@@ -16,7 +16,7 @@ import partList from '../../../part-list.json';
  */
 export const PartSelectMenu = ({ renderItem, ...rest }: ItemListRendererProps<PartType>) => {
     return (
-        <Menu>
+        <Menu className={styles.root}>
             {sortBy(partList.groups, 'index').map((g, gi) => (
                 <>
                     <Text tagName="h3" className={styles.heading}>

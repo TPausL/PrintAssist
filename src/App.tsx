@@ -1,4 +1,4 @@
-import { AnchorButton, Button, Navbar } from '@blueprintjs/core';
+import { AnchorButton, Button, ButtonGroup, Navbar, ProgressBar } from '@blueprintjs/core';
 import { filter, includes, isEqual, isEqualWith, map, merge, remove } from 'lodash';
 import { useState } from 'react';
 import styles from './App.module.scss';
@@ -6,10 +6,14 @@ import { PartList } from './components/part-list/part-list';
 import { PartSelect } from './components/part-select/part-select';
 import { ListPart, PartType } from './types';
 import { slice, print } from './utils';
+import { PartSelectMenu } from './components/part-select-menu/part-select-menu';
+import partList from '../part-list.json';
+import Classnames from 'classnames';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
     const [gcode, setGcode] = useState<string | undefined>(undefined);
+    const [slicing, setSlicing] = useState<boolean>(true);
     const preview = () => {};
     const download = () => {
         //download gcode string as file
@@ -54,37 +58,55 @@ function App() {
                         },
                     }}
                 />
-                {Boolean(parts.length) && (
-                    <Button onClick={async () => setGcode(await slice(parts))}>slice</Button>
-                )}
-                {gcode && (
-                    <Button
-                        onClick={() => {
-                            print(gcode);
-                        }}
-                    >
-                        print
-                    </Button>
-                )}
-                {gcode && (
-                    <Button
-                        onClick={() => {
-                            preview();
-                        }}
-                    >
-                        preview
-                    </Button>
-                )}
-                {gcode && (
-                    <AnchorButton
-                        href={
-                            'data:text/plain;charset=utf-8,' + encodeURIComponent(gcode as string)
-                        }
-                        download={'print.gcode'}
-                    >
-                        download
-                    </AnchorButton>
-                )}
+                <div className={styles['progress-bar-wrapper']}>
+                    {slicing && (
+                        <ProgressBar value={1} animate={true} className={styles['progress-bar']} />
+                    )}
+                </div>
+                <div className={styles['button-group-wrapper']}>
+                    <ButtonGroup className={styles['button-group']}>
+                        {Boolean(parts.length) && (
+                            <Button
+                                onClick={async () => {
+                                    setSlicing(true);
+                                    setGcode(await slice(parts));
+                                    setSlicing(false);
+                                }}
+                            >
+                                {gcode ? "re-slice" : "slice"}
+                            </Button>
+                        )}
+                        {gcode && (
+                            <Button
+                                onClick={() => {
+                                    print(gcode);
+                                }}
+                            >
+                                print
+                            </Button>
+                        )}
+                        {gcode && (
+                            <Button
+                                onClick={() => {
+                                    preview();
+                                }}
+                            >
+                                preview
+                            </Button>
+                        )}
+                        {gcode && (
+                            <AnchorButton
+                                href={
+                                    'data:text/plain;charset=utf-8,' +
+                                    encodeURIComponent(gcode as string)
+                                }
+                                download={'print.gcode'}
+                            >
+                                download
+                            </AnchorButton>
+                        )}
+                    </ButtonGroup>
+                </div>
             </div>
         </div>
     );

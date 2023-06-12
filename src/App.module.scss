@@ -2,11 +2,21 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
-  text-align: center;
   width: 100%;
   height: 100%;
 }
 body {
 }
 .content {
+}
+.progress-bar {
+  margin: 8px;
+}
+.progress-bar-wrapper {
+  height: 24px;
+  display: flex;
+}
+.button-group {
+}
+.button-group-wrapper {
 }
