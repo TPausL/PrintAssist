@@ -9,7 +9,11 @@ export const printerAxios = axios.create({
 });
 
 export async function slice(parts: ListPart[]) {
-    const { data: file } = await axios.post('http://localhost:3000/slice', { parts }, { responseType: 'text' });
+    const { data: file } = await axios.post(
+        'http://localhost:3000/slice',
+        { parts },
+        { responseType: 'text' }
+    );
     console.log(file);
     return file;
 }

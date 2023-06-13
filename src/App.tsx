@@ -9,11 +9,13 @@ import { slice, print } from './utils';
 import { PartSelectMenu } from './components/part-select-menu/part-select-menu';
 import partList from '../part-list.json';
 import Classnames from 'classnames';
+import { SettingsDialog } from './components/settings-dialog/settings-dialog';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
     const [gcode, setGcode] = useState<string | undefined>(undefined);
     const [slicing, setSlicing] = useState<boolean>(true);
+    const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
     const preview = () => {};
     const download = () => {
         //download gcode string as file
@@ -25,7 +27,7 @@ function App() {
                     <Navbar.Heading>PrintAssist</Navbar.Heading>
                 </Navbar.Group>
                 <Navbar.Group align="right">
-                    <Button icon="cog" minimal />
+                    <Button icon="cog" minimal onClick={() => setSettingsOpen(true)} />
                 </Navbar.Group>
             </Navbar>
             <div className={styles.content}>
@@ -73,7 +75,7 @@ function App() {
                                     setSlicing(false);
                                 }}
                             >
-                                {gcode ? "re-slice" : "slice"}
+                                {gcode ? 're-slice' : 'slice'}
                             </Button>
                         )}
                         {gcode && (
@@ -108,6 +110,7 @@ function App() {
                     </ButtonGroup>
                 </div>
             </div>
+            <SettingsDialog isOpen={settingsOpen} onClosed={() => setSettingsOpen(false)} />
         </div>
     );
 }

@@ -9,7 +9,7 @@ export interface PartType {
     price: number;
     group: PartGroup['id'];
 }
-export type ListPart = PartType & { count: number }
+export type ListPart = PartType & { count: number };
 export interface PartGroup {
     id: string;
     name: string;
@@ -17,11 +17,17 @@ export interface PartGroup {
     index: number;
 }
 
+export interface Settings {
+    printer: {
+        hostname: string;
+        api_key: string;
+    };
+}
 
 export interface TypedRequestBody<T> extends Express.Request {
-    body: T
+    body: T;
 }
 
 export type SliceRequest = TypedRequestBody<{
     parts: ListPart[];
-}>
+}>;
