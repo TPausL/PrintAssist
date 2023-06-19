@@ -5,21 +5,17 @@ import styles from './App.module.scss';
 import { PartList } from './components/part-list/part-list';
 import { PartSelect } from './components/part-select/part-select';
 import { ListPart, PartType } from './types';
-import { slice, print } from './utils';
-import { PartSelectMenu } from './components/part-select-menu/part-select-menu';
-import partList from '../part-list.json';
-import Classnames from 'classnames';
+import { slice } from './utils';
 import { SettingsDialog } from './components/settings-dialog/settings-dialog';
+import { usePrinter } from './contexts/contextHooks';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
     const [gcode, setGcode] = useState<string | undefined>(undefined);
-    const [slicing, setSlicing] = useState<boolean>(true);
+    const [slicing, setSlicing] = useState<boolean>(false);
     const [settingsOpen, setSettingsOpen] = useState<boolean>(false);
+    const printer = usePrinter();
     const preview = () => {};
-    const download = () => {
-        //download gcode string as file
-    };
     return (
         <div className={styles.App}>
             <Navbar fixedToTop>
@@ -51,11 +47,8 @@ function App() {
                     handlers={{
                         remove: (p) => setParts(filter(parts, (v) => !isEqual(v, p))),
                         count: (p, c) => {
-                            console.log(c);
                             const i = parts.indexOf(p);
-                            console.log(i);
                             parts[i] = { ...parts[i], count: c };
-                            console.log(parts);
                             setParts([...parts]);
                         },
                     }}
@@ -81,7 +74,7 @@ function App() {
                         {gcode && (
                             <Button
                                 onClick={() => {
-                                    print(gcode);
+                                    printer?.print(gcode);
                                 }}
                             >
                                 print

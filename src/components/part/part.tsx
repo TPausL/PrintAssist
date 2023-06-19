@@ -8,7 +8,7 @@ import { PartListProps } from '../part-list/part-list';
 export interface PartProps {
     className?: string;
     data: ListPart;
-    handlers: PartListProps["handlers"]
+    handlers: PartListProps['handlers'];
 }
 
 /**
@@ -16,7 +16,6 @@ export interface PartProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const Part = ({ className, data, handlers }: PartProps) => {
-    console.log(data.count)
     const [count, setCount] = useState<number>(1);
     return (
         <div className={classNames(styles.root, className, styles['part-list-item'])}>
@@ -29,9 +28,9 @@ export const Part = ({ className, data, handlers }: PartProps) => {
                 className={styles.input}
                 min={1}
                 value={data.count}
-                onValueChange={(c) => handlers.count(data,c)}
+                onValueChange={(c) => handlers.count(data, c)}
             />
-            <Icon icon={"cross"} onClick={() => handlers.remove(data)} />
+            <Icon icon={'cross'} onClick={() => handlers.remove(data)} />
         </div>
     );
 };

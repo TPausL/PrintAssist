@@ -31,3 +31,72 @@ export interface TypedRequestBody<T> extends Express.Request {
 export type SliceRequest = TypedRequestBody<{
     parts: ListPart[];
 }>;
+
+export type Spool = {
+    bedTemperature: number;
+    code: string | null;
+    color: string;
+    colorName: string;
+    cost: number;
+    costUnit: string;
+    created: string;
+    databaseId: number;
+    density: number;
+    diameter: number;
+    diameterTolerance: string | null;
+    displayName: string;
+    enclosureTemperature: number | null;
+    firstUse: string;
+    flowRateCompensation: number | null;
+    isActive: boolean;
+    isTemplate: boolean | null;
+    labels: string;
+    lastUse: string;
+    material: string;
+    materialCharacteristic: string | null;
+    noteDeltaFormat: string;
+    noteHtml: string;
+    noteText: string;
+    offsetBedTemperature: number | null;
+    offsetEnclosureTemperature: number | null;
+    offsetTemperature: number | null;
+    originator: string | null;
+    purchasedFrom: string | null;
+    purchasedOn: string;
+    remainingLength: string;
+    remainingLengthPercentage: string;
+    remainingPercentage: string;
+    remainingWeight: string;
+    spoolWeight: string;
+    temperature: number;
+    totalLength: number;
+    totalWeight: string;
+    updated: string;
+    usedLength: number;
+    usedLengthPercentage: string;
+    usedPercentage: string;
+    usedWeight: string;
+    vendor: string;
+    version: number;
+};
+
+export type ColorsCatalog = {
+    color: string;
+    colorId: string;
+    colorName: string;
+};
+
+export type Catalogs = {
+    colors: ColorsCatalog[];
+    labels: string[];
+    materials: string[];
+    vendors: string[];
+};
+
+export type SelectedSpool = Spool;
+
+export type Spools = {
+    allSpools: Spool[];
+    catalogs: Catalogs;
+    selectedSpools: SelectedSpool[];
+};

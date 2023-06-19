@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { ListPart } from './types';
+import { Intent, OverlayToaster } from '@blueprintjs/core';
+
 export const printerAxios = axios.create({
     baseURL: 'http://octopi/',
     headers: {
@@ -14,17 +16,14 @@ export async function slice(parts: ListPart[]) {
         { parts },
         { responseType: 'text' }
     );
-    console.log(file);
     return file;
 }
 
-export async function print(gcode: string) {
-    const form = new FormData();
-
-    const blob = new Blob([gcode], { type: 'application/octet-stream' });
-    form.append('file', blob, 'out.gcode');
-    form.append('select', 'true');
-    form.append('print', '');
-    form.append('path', 'generated');
-    printerAxios.post('/api/files/local', form);
+export async function toast(
+    message: string,
+    intent: Intent,
+    action?: { text: string; onClick: () => void }
+) {
+    const toaster = OverlayToaster.create({ position: 'bottom' });
+    toaster.show({ message, intent, action });
 }

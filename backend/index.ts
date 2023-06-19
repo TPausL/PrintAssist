@@ -34,32 +34,32 @@ app.post('/slice', async (req: SliceRequest, res) => {
             return outPath;
         })
     );
-    console.log(files.join(' '));
     const r = await execAsync(
         `prusa-slicer --load config.ini -o ./models/generated/out.gcode -g -m ${files.join(' ')}`
     );
-    console.log(process.cwd());
     res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
 });
 
 app.post('/settings', async (req: TypedRequestBody<Settings>, res) => {
     //check whether the hostname in the body printer settings is valid with a regex
     //regex matching url or hostname including optional port
-    const urlRegex = new RegExp(/^(https?:\/\/)?([^\s\/:?#]+\.?)+(:(\d+))?([\/?].*)?$/i);
-    console.log(req.body.printer.hostname);
+    const urlRegex = new RegExp(/^(([^:]+):)?\/\/([-\w._]+)(:(\d+))?(\/[-\w._]\?(.+)?)?$/gi);
     if (!req.body.printer.hostname.match(urlRegex)) {
         res.status(422).send('invalid hostname');
         return;
     }
+    const schemeRegex = new RegExp(/^([a-z0-9]+):\/\//gi);
+    if (!req.body.printer.hostname.match(schemeRegex)) {
+        req.body.printer.hostname = 'http://' + req.body.printer.hostname;
+    }
 
     //write req.body to file to json file
     fs.writeFileSync('./db/settings.json', JSON.stringify(req.body));
-    res.send('ok');
+    res.send({ success: true, data: req.body });
 });
 
 //get request to send the settings in the json file back to the user
 app.get('/settings', async (req, res) => {
-    console.log('trying to get settings');
     //check whether the settings file exists
     if (!fs.existsSync('./db/settings.json')) {
         res.status(404).send('settings not found');
