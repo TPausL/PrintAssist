@@ -6,8 +6,10 @@
   "scripts": {
     "run-backend": "tsc --project tsconfig.backend.json && node dist-backend/backend/index.js",
     "dev": "yarpm gen-times && nodemon",
-    "build": "yarpm gen-times && tsc && vite build",
+    "build": "yarpm gen-times && yarpm build-frontend && yarpm run-backend",
+    "build-frontend": "tsc && vite build",
     "preview": "vite preview",
+    "start": "yarpm build && yarpm run-backend",
     "gen-times": "node gen-times.js"
   },
   "dependencies": {

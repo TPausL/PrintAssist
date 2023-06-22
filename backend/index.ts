@@ -7,12 +7,15 @@ import { Settings, SliceRequest, TypedRequestBody } from '../src/types';
 import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
+import 'dotenv/config';
 const { map } = _;
 
 const execAsync = promisify(exec);
 const mkdirAsync = promisify(fs.mkdir);
 
 const app = express();
+
+ViteExpress.config({ mode: process.env.NODE_ENV as 'production' | 'development' });
 //app.use(bodyParser.urlencoded({ extended: true }));
 
 //allow all cors origins
