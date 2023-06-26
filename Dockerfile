@@ -11,12 +11,22 @@ COPY package*.json ./
 RUN npm install
 RUN npm install -g yarpm
 # RUN npm run gen-times
-RUN npm run build-frontend
 
 # Copy the rest of the application code
 COPY . .
 
+# Download the script locally
+RUN curl -o install.sh https://raw.githubusercontent.com/ory/meta/master/install.sh
+
+# Make the script executable
+RUN chmod +x install.sh
+
+# Execute the script
+RUN ./install.sh -b . ory
+RUN cp ./ory /usr/local/bin/
+RUN npm run build-frontend
 # Expose the port your app is listening on
-EXPOSE 3000
+EXPOSE 8080
+ENV VITE_PROJECT_URL, ORY_SLUG, PORT = 8080
 # Specify the command to run your app
-CMD ["npm", "run-backend"]
+ENTRYPOINT sh ./docker-entry.sh ${VITE_PROJECT_URL} ${ORY_SLUG} ${PORT}

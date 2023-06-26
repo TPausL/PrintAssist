@@ -19,7 +19,7 @@ export const Login = ({ className, children }: LoginProps) => {
     const api = useRef(
         new FrontendApi(
             new Configuration({
-                basePath: import.meta.env.VITE_ORY_URL,
+                basePath: import.meta.env.VITE_PROJECT_URL,
                 baseOptions: { withCredentials: true },
             })
         )
