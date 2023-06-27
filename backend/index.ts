@@ -26,21 +26,29 @@ app.use((req, res, next) => {
 app.use(express.json());
 
 app.post('/slice', async (req: SliceRequest, res) => {
-    if (!fs.existsSync('./models/generated')) await mkdirAsync('./models/generated');
-    const files: string[] = await Promise.all(
-        map(req.body.parts, async (p) => {
-            const outPath =
-                './models/generated/' + p.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '') + '.3mf';
-            await execAsync(
-                `prusa-slicer -o ${outPath} --duplicate ${p.count} --export-3mf ./models/${p.file}`
-            );
-            return outPath;
-        })
-    );
-    const r = await execAsync(
-        `prusa-slicer --load config.ini -o ./models/generated/out.gcode -g -m ${files.join(' ')}`
-    );
-    res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
+    try {
+        if (!fs.existsSync('./models/generated')) await mkdirAsync('./models/generated');
+        const files: string[] = await Promise.all(
+            map(req.body.parts, async (p) => {
+                const outPath =
+                    './models/generated/' +
+                    p.name.toLowerCase().replace(/[^a-zA-Z0-9]/g, '') +
+                    '.3mf';
+                await execAsync(
+                    `prusa-slicer -o ${outPath} --duplicate ${p.count} --export-3mf ./models/${p.file}`
+                );
+                return outPath;
+            })
+        );
+        const r = await execAsync(
+            `prusa-slicer --load config.ini -o ./models/generated/out.gcode -g -m ${files.join(
+                ' '
+            )}`
+        );
+        res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
+    } catch (e) {
+        res.status(500).send("slicing wasn't possible due to a server error");
+    }
 });
 
 app.post('/settings', async (req: TypedRequestBody<Settings>, res) => {

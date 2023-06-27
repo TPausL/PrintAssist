@@ -2,8 +2,7 @@ import classNames from 'classnames';
 import styles from './login.module.scss';
 import { useEffect, useRef, useState } from 'react';
 import { Configuration, FrontendApi } from '@ory/kratos-client';
-import { set } from 'lodash';
-import { AnchorButton, Button } from '@blueprintjs/core';
+import { AnchorButton } from '@blueprintjs/core';
 export interface LoginProps {
     className?: string;
     children?: React.ReactNode;
@@ -19,14 +18,13 @@ export const Login = ({ className, children }: LoginProps) => {
     const api = useRef(
         new FrontendApi(
             new Configuration({
-                basePath: import.meta.env.VITE_PROJECT_URL,
+                basePath: '/.ory',
                 baseOptions: { withCredentials: true },
             })
         )
     );
 
     const login = async () => {
-        console.log('loginnnn');
         try {
             const session = await api.current.toSession();
             console.log('got session');

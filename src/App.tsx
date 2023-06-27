@@ -5,9 +5,11 @@ import styles from './App.module.scss';
 import { PartList } from './components/part-list/part-list';
 import { PartSelect } from './components/part-select/part-select';
 import { ListPart, PartType } from './types';
-import { slice } from './utils';
+
 import { SettingsDialog } from './components/settings-dialog/settings-dialog';
 import { usePrinter } from './contexts/contextHooks';
+import { toast } from './utils';
+import { AxiosError } from 'axios';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
@@ -64,7 +66,11 @@ function App() {
                             <Button
                                 onClick={async () => {
                                     setSlicing(true);
-                                    setGcode(await slice(parts));
+                                    try {
+                                        setGcode(await printer?.slice(parts));
+                                    } catch (err: AxiosError | any) {
+                                        toast(err.response.data, 'danger');
+                                    }
                                     setSlicing(false);
                                 }}
                             >
@@ -104,6 +110,7 @@ function App() {
                 </div>
             </div>
             <SettingsDialog isOpen={settingsOpen} onClosed={() => setSettingsOpen(false)} />
+            <div />
         </div>
     );
 }

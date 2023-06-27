@@ -1,5 +1,5 @@
 {
-    "watch": "backend",
-    "exec": "yarpm run run-backend",
-    "ext": "ts,json"
+  "watch": "backend",
+  "exec": "yarpm build:backend && yarpm start:prod",
+  "ext": "ts,json"
 }

@@ -1,13 +1,13 @@
 import { createContext, useEffect, useRef, useState } from 'react';
 import { useSettings } from './contextHooks';
-import axios from 'axios';
-import { Spool, Spools } from '../types';
+import axios, { AxiosRequestConfig } from 'axios';
+import { ListPart, Spool, Spools } from '../types';
 import { toast } from '../utils';
-import { set } from 'lodash';
 
 export interface PrinterContextType {
     print(gcode: string): void;
     selectSpool(spoolId: number): void;
+    slice(parts: ListPart[]): Promise<string>;
     spools?: Spools;
 }
 
@@ -17,20 +17,22 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
     const settings = useSettings();
 
     const [spools, setSpools] = useState<Spools>();
-    const [axiosSettings, setAxiosSettings] = useState({
-        baseURL: `${settings?.values?.printer.hostname}`,
-        headers: {
-            Authorization: `Bearer ${settings?.values?.printer.api_key}`,
-        },
-    });
-    const print = (gcode: string) => {
+    const [axiosSettings, setAxiosSettings] = useState<AxiosRequestConfig | undefined>(undefined);
+
+    const slice = async (parts: ListPart[]) => {
+        const { data: file } = await axios.post('/slice', { parts }, { responseType: 'text' });
+        return file;
+    };
+
+    const print = async (gcode: string) => {
         const form = new FormData();
         const blob = new Blob([gcode], { type: 'application/octet-stream' });
         form.append('file', blob, 'out.gcode');
         form.append('select', 'true');
         form.append('print', 'false');
         form.append('path', 'generated');
-        axios.post('/api/files/local', form, axiosSettings);
+        await axios.post('/api/files/local', form, axiosSettings);
+        toast('Succesfully printed!', 'success');
     };
 
     const selectSpool = async (spoolId: number) => {
@@ -59,7 +61,7 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
         });
     }, [settings]);
     useEffect(() => {
-        console.log(axiosSettings);
+        if (axiosSettings === undefined) return;
         axios
             .get(
                 '/plugin/SpoolManager/loadSpoolsByQuery?filterName=hideInactiveSpools&from=0&to=3000&sortColumn=lastUse&sortOrder=desc',
@@ -74,7 +76,7 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
             });
     }, [axiosSettings]);
     return (
-        <PrinterContext.Provider value={{ print, spools, selectSpool }}>
+        <PrinterContext.Provider value={{ print, spools, selectSpool, slice }}>
             {props.children}
         </PrinterContext.Provider>
     );

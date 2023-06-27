@@ -4,12 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "run-backend": "tsc --project tsconfig.backend.json && node dist-backend/backend/index.js",
-    "dev": "yarpm gen-times && nodemon",
-    "build": "yarpm gen-times && yarpm build-frontend && yarpm run-backend",
-    "build-frontend": "tsc && vite build",
-    "preview": "vite preview",
-    "start": "yarpm build && yarpm run-backend",
+    "start:prod": "node dist-backend/backend/index.js",
+    "start:dev": "set NODE_ENV=development&& nodemon",
+    "build": "yarpm gen-times && yarpm build-frontend && yarpm build-backend",
+    "build:frontend": "tsc && vite build",
+    "build:backend": "tsc --project tsconfig.backend.json",
     "gen-times": "node gen-times.js"
   },
   "dependencies": {
@@ -33,8 +32,8 @@
     "vite-express": "^0.8.0",
     "vite-plugin-svgr": "^3.2.0",
     "typescript": "^5.0.4",
-    "vite": "^4.3.8"
-    
+    "vite": "^4.3.8",
+    "yarpm": "^1.2.0"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.194",
@@ -43,7 +42,6 @@
     "@vitejs/plugin-react": "^4.0.0",
     "@wixc3/react-board": "^2.2.0",
     "nodemon": "^2.0.22",
-    "sass": "^1.62.1",
-    "yarpm": "^1.2.0"
+    "sass": "^1.62.1"
   }
 }
