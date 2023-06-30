@@ -27,8 +27,8 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
     const print = async (gcode: string) => {
         const form = new FormData();
         const blob = new Blob([gcode], { type: 'application/octet-stream' });
-        form.append('file', blob, 'out.gcode');
-        form.append('select', 'true');
+        form.append('file', blob, 'outtt.gcode');
+        form.append('select', 'false');
         form.append('print', 'false');
         form.append('path', 'generated');
         await axios.post('/api/files/local', form, axiosSettings);
@@ -49,16 +49,21 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
             toast('Spool successfully selected', 'success');
         } catch (err) {
             toast('Error selecting spool', 'danger');
-            console.log(err);
         }
     };
     useEffect(() => {
-        setAxiosSettings({
-            baseURL: `${settings?.values?.printer.hostname}`,
-            headers: {
-                Authorization: `Bearer ${settings?.values?.printer.api_key}`,
-            },
-        });
+        console.log('settings changed', settings);
+        if (settings?.values?.printer) {
+            console.log('settings are ready');
+            setAxiosSettings({
+                baseURL: `${settings?.values?.printer.hostname}`,
+                headers: {
+                    Authorization: `Bearer ${settings?.values?.printer.api_key}`,
+                },
+            });
+        } else {
+            console.log("settings aren't ready yet");
+        }
     }, [settings]);
     useEffect(() => {
         if (axiosSettings === undefined) return;
@@ -68,11 +73,11 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
                 axiosSettings
             )
             .then((res) => {
-                console.log(res.data);
+                console.log('got spool data');
                 setSpools(res.data);
             })
             .catch((err) => {
-                console.log(err);
+                console.log('error gettings spool data', err);
             });
     }, [axiosSettings]);
     return (

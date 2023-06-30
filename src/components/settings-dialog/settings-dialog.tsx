@@ -20,6 +20,7 @@ import { isEqual, omit, pick, set } from 'lodash';
 import { Divide } from '@blueprintjs/icons/lib/esm/generated-icons/16px/paths';
 import { Select2 } from '@blueprintjs/select';
 import { toast } from '../../utils';
+import { SpoolColorPicker } from '../spool-color-picker/spool-color-picker';
 
 export interface SettingsDialogProps extends Omit<DialogProps, 'title' | 'onClosed'> {
     className?: string;
@@ -39,11 +40,7 @@ export const SettingsDialog = ({ className, isOpen, onClosed, ...rest }: Setting
     const [spool, setSpool] = useState<Spool | undefined>(
         printer?.spools?.selectedSpools ? printer?.spools?.selectedSpools[0] : undefined
     );
-    useEffect(() => {
-        if (printer?.spools?.selectedSpools) {
-            setSpool(printer?.spools?.selectedSpools[0]);
-        }
-    }, [printer?.spools?.selectedSpools]);
+
     useEffect(() => {
         if (settings) {
             setLoading(false);
@@ -61,26 +58,13 @@ export const SettingsDialog = ({ className, isOpen, onClosed, ...rest }: Setting
 
     const submit = async () => {
         const conSettingsDirty = !isEqual(values, settings?.values);
-        const spoolSettingsDirty = !isEqual(spool, printer?.spools?.selectedSpools[0]);
+
         if (conSettingsDirty) {
-            console.log('submitting aapi connection');
             try {
                 await settings?.updateSettings(values as Settings);
-                setOpen(false);
             } catch (e) {}
         }
-        console.log(spool, printer?.spools?.selectedSpools[0]);
-        if (spoolSettingsDirty) {
-            console.log('submitting spool');
-            try {
-                await printer?.selectSpool(spool?.databaseId as number);
-                setOpen(false);
-            } catch (e) {}
-        }
-        if (!conSettingsDirty && !spoolSettingsDirty) {
-            toast('No changes were made', 'warning');
-            setOpen(false);
-        }
+        setOpen(false);
     };
 
     return (
@@ -144,19 +128,7 @@ export const SettingsDialog = ({ className, isOpen, onClosed, ...rest }: Setting
                                 <Text>Select which color to print in</Text>
                             </div>
                             <div>
-                                <Select2
-                                    items={printer?.spools?.allSpools as Spool[]}
-                                    itemRenderer={(spool, { handleClick }) => (
-                                        <MenuItem
-                                            onClick={handleClick}
-                                            role="listoption"
-                                            text={spool.colorName}
-                                        />
-                                    )}
-                                    onItemSelect={(spool) => setSpool(spool)}
-                                >
-                                    <Button text={spool?.colorName} />
-                                </Select2>
+                                <SpoolColorPicker />
                             </div>
                         </div>
                         <DialogFooter

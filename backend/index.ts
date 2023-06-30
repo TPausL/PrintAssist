@@ -8,6 +8,7 @@ import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
+
 const { map } = _;
 
 const execAsync = promisify(exec);
@@ -20,7 +21,7 @@ ViteExpress.config({ mode: process.env.NODE_ENV as 'production' | 'development' 
 
 //allow all cors origins
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
+    //res.header('Access-Control-Allow-Origin', '*');
     next();
 });
 app.use(express.json());

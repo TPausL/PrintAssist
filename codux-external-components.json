@@ -1,0 +1,142 @@
+[
+  {
+    "name": "Blueprint Components",
+    "components": [
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "ProgressBar",
+        "name": "Progress Bar"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Button",
+        "name": "Button"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Checkbox",
+        "name": "Checkbox"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Radio",
+        "name": "Radio"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Switch",
+        "name": "Switch"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Slider",
+        "name": "Slider"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "RangeSlider",
+        "name": "Range Slider"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Spinner",
+        "name": "Spinner"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Tag",
+        "name": "Tag"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Text",
+        "name": "Text"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "TextArea",
+        "name": "TextArea"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "InputGroup",
+        "name": "Input Group"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "HTMLTable",
+        "name": "HTML Table"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "HTMLSelect",
+        "name": "HTML Select"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "FileInput",
+        "name": "File Input"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Icon",
+        "name": "Icon"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Spinner",
+        "name": "Spinner"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Dialog",
+        "name": "Dialog"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Alert",
+        "name": "Alert"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Callout",
+        "name": "Callout"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Toaster",
+        "name": "Toaster"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Tooltip",
+        "name": "Tooltip"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Popover",
+        "name": "Popover"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Menu",
+        "name": "Menu"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Tabs",
+        "name": "Tabs"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Navbar",
+        "name": "Navbar"
+      },
+      {
+        "filePath": "@blueprintjs/core",
+        "exportName": "Breadcrumb",
+        "name": "Breadcrumb"
+      }
+    ]
+  }
+]

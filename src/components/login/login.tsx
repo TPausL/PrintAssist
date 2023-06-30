@@ -27,10 +27,9 @@ export const Login = ({ className, children }: LoginProps) => {
     const login = async () => {
         try {
             const session = await api.current.toSession();
-            console.log('got session');
+
             setLoggedIn(true);
         } catch (err) {
-            console.log('login failed');
             const res = await api.current.createBrowserLoginFlow({
                 returnTo: window.location.href,
             });
