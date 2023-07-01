@@ -6,6 +6,7 @@ import { Button, Icon, MenuItem, Spinner } from '@blueprintjs/core';
 import { useEffect, useState } from 'react';
 import { usePrinter } from '../../contexts/contextHooks';
 import { isEqual } from 'lodash';
+import { Menu } from '@blueprintjs/icons/lib/esm/generated-icons/16px/paths';
 
 export interface SpoolColorPickerProps {
     className?: string;
@@ -56,6 +57,8 @@ export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps)
                     icon={<Icon icon="full-circle" color={spool.color} />}
                     onClick={handleClick}
                     role="listoption"
+                    className={styles['color-item']}
+                    //labelElement={<Icon icon="caret-right" />}
                     text={
                         <>
                             {' '}
@@ -63,7 +66,12 @@ export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps)
                             <span style={{ color: '#9A9A9A' }}> - {spool?.remainingWeight}g</span>
                         </>
                     }
-                />
+                >
+                    <MenuItem icon="build" text={spool.vendor} />
+                    <MenuItem icon="temperature" text={spool.temperature + '°C'} />
+                    <MenuItem icon="new-object" text={spool.totalWeight + 'g'} />
+                    <MenuItem icon="euro" text={spool.cost + '€'} />
+                </MenuItem>
             )}
             onItemSelect={(spool) => setSpool(spool)}
             itemPredicate={(query, spool) =>

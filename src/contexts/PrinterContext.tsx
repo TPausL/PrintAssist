@@ -1,8 +1,11 @@
 import { createContext, useEffect, useRef, useState } from 'react';
 import { useSettings } from './contextHooks';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ListPart, Spool, Spools } from '../types';
 import { toast } from '../utils';
+import { compact, pickBy, sortBy, toArray } from 'lodash';
+//@ts-ignore
+import { sortFn } from 'color-sorter';
 
 export interface PrinterContextType {
     print(gcode: string): void;
@@ -72,8 +75,17 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
                 '/plugin/SpoolManager/loadSpoolsByQuery?filterName=hideInactiveSpools&from=0&to=3000&sortColumn=lastUse&sortOrder=desc',
                 axiosSettings
             )
-            .then((res) => {
+            .then((res: AxiosResponse<Spools>) => {
                 console.log('got spool data');
+                console.log(res.data);
+                res.data.allSpools = toArray(
+                    pickBy(
+                        res.data.allSpools.sort((a, b) => sortFn(a.color, b.color)),
+                        (s) => !s.isTemplate
+                    )
+                );
+
+                console.log(res.data.allSpools);
                 setSpools(res.data);
             })
             .catch((err) => {

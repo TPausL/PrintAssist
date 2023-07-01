@@ -4,8 +4,9 @@ import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { Settings } from '../types';
 import { toast } from '../utils';
-axios.defaults.baseURL = 'http://localhost:4000';
-
+if (import.meta.env.VITE_ENVIRONMENT === 'development') {
+    axios.defaults.baseURL = 'http://localhost:4000';
+}
 export const SettingsContext = createContext<
     { values?: Settings; updateSettings: (s: Settings) => void } | undefined
 >(undefined);
