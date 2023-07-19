@@ -35,20 +35,20 @@ export const ConfirmDialog = ({
         }
     }, [open]);
     return (
-        <Dialog isOpen={open} title="Confirm starting print!" onClose={() => setOpen(false)}>
+        <Dialog isOpen={open} title="Starten des Drucks bestätigen!" onClose={() => setOpen(false)}>
             <DialogBody>
                 <div className={SettingsDialog_module['list-item']}>
-                    <Text>What color do you want to print in?</Text>
+                    <Text>In welcher Farbe wird gedruckt?</Text>
                     <SpoolColorPicker />
                 </div>
             </DialogBody>
             <DialogFooter
                 actions={[
                     <Button intent="danger" onClick={onCanceled}>
-                        Cancel
+                        Abbrechen
                     </Button>,
                     <Button intent="success" onClick={onConfirmed}>
-                        Confirm
+                        Drucken
                     </Button>,
                 ]}
             />

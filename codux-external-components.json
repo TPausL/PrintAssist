@@ -136,7 +136,8 @@
         "filePath": "@blueprintjs/core",
         "exportName": "Breadcrumb",
         "name": "Breadcrumb"
-      }
+      },
+      { "filePath": "@blueprintjs/core", "exportName": "Tab", "name": "Tab" }
     ]
   }
 ]

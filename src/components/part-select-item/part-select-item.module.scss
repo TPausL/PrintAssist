@@ -62,9 +62,6 @@
   font-size: 17px;
   color: #549f99;
 }
-.icon {
-  margin-right: 8px;
-}
 .group-headline {
   color: var(--headline-color) !important;
   font-size: 40px;
@@ -94,4 +91,24 @@
   justify-items: center;
   justify-content: space-between;
   min-width: 200px;
+}
+
+.part-wrapper {
+  position: relative;
+  margin: 4px;
+  min-width: 150px;
+  flex: 1;
+  width: 400px;
+  flex-basis: 20%;
+  max-width: 20%;
+  flex-wrap: wrap;
+}
+.icon {
+  position: absolute;
+  object-fit: contain;
+  opacity: 0.1;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

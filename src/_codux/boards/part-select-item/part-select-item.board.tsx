@@ -3,5 +3,9 @@ import { PartSelectItem } from '../../../components/part-select-item/part-select
 
 export default createBoard({
     name: 'PartSelectItem',
-    Board: () => <PartSelectItem />
+    Board: () => <PartSelectItem size="groß" />,
+    environmentProps: {
+        canvasWidth: 653,
+        canvasHeight: 166,
+    },
 });

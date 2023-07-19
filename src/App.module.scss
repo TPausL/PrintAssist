@@ -8,6 +8,7 @@
 body {
 }
 .content {
+  width: 100%;
 }
 .progress-bar {
   margin: 8px;
@@ -17,6 +18,22 @@ body {
   display: flex;
 }
 .button-group {
+  display: block;
 }
 .button-group-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px;
+}
+.part-select-card {
+  width: 100%;
+}
+
+.summary-wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px;
+  width: 100%;
+  align-items: center;
+  min-height: 200px;
 }

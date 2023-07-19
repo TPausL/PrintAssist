@@ -9,9 +9,8 @@ export default createBoard({
     name: 'App',
     Board: () => (
         <SettingsContextProvider>
-            <PrinterContextProvider>
-                <App />
-            </PrinterContextProvider>
+            <PrinterContextProvider></PrinterContextProvider>
+            <App />
         </SettingsContextProvider>
     ),
     environmentProps: {

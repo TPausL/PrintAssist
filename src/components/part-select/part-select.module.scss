@@ -1,6 +1,25 @@
 .root {
 }
 .root {
-  height: 50px;
   display: flex;
+  width: 100%;
+}
+
+.tab-icon {
+  margin: 0;
+}
+
+.tab-icon-wrapper {
+  min-width: 26px;
+  display: flex;
+  justify-content: center;
+  margin-right: 8px;
+}
+.part-select-tabs {
+  width: 100%;
+}
+.tab-panel {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
