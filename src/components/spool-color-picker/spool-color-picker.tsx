@@ -19,7 +19,6 @@ export interface SpoolColorPickerProps {
  */
 export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps) => {
     const printer = usePrinter();
-    console.log(printer?.spools);
     const [spool, setSpool] = useState<Spool | undefined>(undefined);
 
     useEffect(() => {
@@ -52,8 +51,10 @@ export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps)
         <Select2
             className={!printer?.spools?.allSpools?.length ? 'bp4-skeleton' : undefined}
             items={printer?.spools?.allSpools ?? []}
+            inputProps={{autoFocus: false}}
             itemRenderer={(spool, { handleClick }) => (
                 <MenuItem
+                key={spool.databaseId}
                     icon={<Icon icon="full-circle" color={spool.color} />}
                     onClick={handleClick}
                     role="listoption"

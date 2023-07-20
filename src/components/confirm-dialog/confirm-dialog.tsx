@@ -44,10 +44,10 @@ export const ConfirmDialog = ({
             </DialogBody>
             <DialogFooter
                 actions={[
-                    <Button intent="danger" onClick={onCanceled}>
+                    <Button key="cancel" intent="danger" onClick={onCanceled}>
                         Abbrechen
                     </Button>,
-                    <Button intent="success" onClick={onConfirmed}>
+                    <Button key="print" intent="success" onClick={onConfirmed}>
                         Drucken
                     </Button>,
                 ]}

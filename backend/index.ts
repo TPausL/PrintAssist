@@ -48,7 +48,13 @@ app.post('/slice', async (req: SliceRequest, res) => {
         );
         res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
     } catch (e) {
-        res.status(500).send("slicing wasn't possible due to a server error");
+        if (e.stderr.includes('could not fit')) {
+            res.status(413).send("Die Teile passen nicht auf das Druckbett!");
+        }
+        if (e.stderr.includes('No such file or directory')) {
+            res.status(404).send("Die Datei wurde nicht gefunden!");
+        }
+
     }
 });
 

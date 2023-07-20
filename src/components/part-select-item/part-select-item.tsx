@@ -6,6 +6,7 @@ import { PartType } from '../../types';
 import { startCase, upperFirst } from 'lodash';
 import PartSelectItem_module from './part-select-item.module.scss';
 import partList from '../../../part-list.json';
+import React from 'react';
 export type PartSelectItemProps = {
     className?: string;
     size: 'klein' | 'mittel' | 'groß';
@@ -24,9 +25,10 @@ const SVG = ({ group }: { group: string }) => {
 export const PartSelectItem = ({ className, size, onPartAdded }: PartSelectItemProps) => {
     const parts = partList.parts.filter((part) => part.size == size);
     return (
-        <>
+        <React.Fragment key={size} >
             {parts.map((p, i) => (
                 <Card
+                key={i}
                     onClick={() => onPartAdded(p)}
                     interactive
                     elevation={1}
@@ -45,6 +47,6 @@ export const PartSelectItem = ({ className, size, onPartAdded }: PartSelectItemP
                     <p>{p.weight}g</p>
                 </Card>
             ))}
-        </>
+        </React.Fragment>
     );
 };

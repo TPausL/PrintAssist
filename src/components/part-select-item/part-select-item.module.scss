@@ -96,7 +96,7 @@
 .part-wrapper {
   position: relative;
   margin: 4px;
-  min-width: 150px;
+  min-width: 120px;
   flex: 1;
   width: 400px;
   flex-basis: 20%;
@@ -111,4 +111,5 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 }

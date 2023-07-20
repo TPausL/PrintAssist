@@ -24,7 +24,7 @@ import { ConfirmDialog } from './components/confirm-dialog/confirm-dialog';
 import { GcodePreview } from './components/gcode-preview/gcode-preview';
 import moment from 'moment';
 import { SpoolColorPicker } from './components/spool-color-picker/spool-color-picker';
-import { isMobile } from 'react-device-detect';
+import { useMediaQuery } from 'react-responsive';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
@@ -36,37 +36,39 @@ function App() {
     const printer = usePrinter();
     const shouldSlice = useRef<boolean>(false);
     const failCount = useRef<number>(0);
+    const isMobile = useMediaQuery({ query: '(max-width: 1224px)' });
 
     const controllerRef = useRef<AbortController | undefined>(new AbortController());
 
-    const slice = (ps: ListPart[], signal?: AbortSignal) => {
-        return new Promise<string>((resolve, reject) => {
-            printer?.slice(ps, signal).then((res) => {
-                resolve(res);
-            });
-        });
-    };
 
     useEffect(() => {
-        setSlicing(true);
-        console.log('parts');
-        controllerRef.current?.abort();
-        controllerRef.current = new AbortController();
-        printer
-            ?.slice(parts, controllerRef.current?.signal)
-            .then((res) => {
-                setGcode(res);
-            })
-            .finally(() => {
-                setSlicing(false);
-            });
+        if (parts.length > 0) {
+            setSlicing(() => true);
+            console.log('parts');
+            controllerRef.current?.abort();
+            controllerRef.current = new AbortController();
+            printer
+                ?.slice(parts, controllerRef.current?.signal)
+                .then((res) => {
+                    //console.log('slicing then');
+                    setSlicing(() => false);
+                    setGcode(res);
+                })
+                .finally(() => {
+                    
+                   // console.log('slicing finally');
+                    
+                })
+                .catch((err: AxiosError) => {
+                    if(err.code !== "ERR_CANCELED"){
+                        toast('Error slicing', 'danger');
+                        setSlicing(false)
+                    }
+                });
+        }
     }, [parts]);
 
-    useEffect(() => {
-        console.log(slicing);
-    }, [slicing]);
-
-    const temptest = printer?.temperature && printer?.temperature >= 195;
+    const temptest = Boolean(printer?.temperature && printer?.temperature >= 195);
     return (
         <div className={styles.App}>
             <Navbar fixedToTop>
@@ -74,7 +76,7 @@ function App() {
                     <Navbar.Heading>PrintAssist</Navbar.Heading>
                 </Navbar.Group>
                 <Navbar.Group align="right">
-                    {!printer?.printing && (
+                    {!(printer?.printing) && (
                         <>
                             {temptest && (
                                 <>
@@ -165,7 +167,6 @@ function App() {
                 )}
                 {Boolean(parts.length) && (
                     <Card elevation={2}>
-                        <div></div>
                         <div className={styles['button-group-wrapper']}>
                             {slicing && (
                                 <ProgressBar
@@ -176,22 +177,33 @@ function App() {
                             )}
                             {gcode && !slicing && (
                                 <div className={styles['summary-wrapper']}>
-                                    <div>
-                                        <h3>Zeit:</h3>
-                                        <p>
-                                            {moment
-                                                .duration(extractDataFromGcode(gcode).time, 's')
-                                                .humanize()}
-                                        </p>
-                                        <h3>Gewicht:</h3>
-                                        <p>{extractDataFromGcode(gcode).weight.toFixed(2)}g</p>
-                                        <h3>Preis:</h3>
-                                        <p>{extractDataFromGcode(gcode).price.toFixed(2)}€</p>
+                                    <div className={styles['info-wrapper']}>
+                                        <div className={styles['info-item']}>
+                                            <h3>Zeit:</h3>
+                                            <p>
+                                                {moment
+                                                    .duration(extractDataFromGcode(gcode).time, 's')
+                                                    .humanize()}
+                                            </p>
+                                        </div>
+                                        <div className={styles['info-item']}>
+                                            <h3>Gewicht:</h3>
+                                            <p>{extractDataFromGcode(gcode).weight.toFixed(2)}g</p>
+                                        </div>
+                                        <div className={styles['info-item']}>
+                                            <h3>Preis:</h3>
+                                            <p>{extractDataFromGcode(gcode).price.toFixed(2)}€</p>
+                                        </div>
                                     </div>
                                     <GcodePreview gcode={gcode} />
-                                    <ButtonGroup vertical large className={styles['button-group']}>
-                                        <SpoolColorPicker />
+                                    <ButtonGroup
+                                        vertical={!isMobile}
+                                        large
+                                        className={styles['button-group']}
+                                    >
+                                        {!isMobile && <SpoolColorPicker />}
                                         <AnchorButton
+                                            icon="download"
                                             href={
                                                 'data:text/plain;charset=utf-8,' +
                                                 encodeURIComponent(gcode as string)
@@ -201,6 +213,7 @@ function App() {
                                             Herunterladen
                                         </AnchorButton>
                                         <Button
+                                            icon="print"
                                             intent="primary"
                                             onClick={() => {
                                                 setConfirmOpen(true);

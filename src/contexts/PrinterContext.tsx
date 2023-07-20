@@ -33,9 +33,6 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
     const slice = async (parts: ListPart[], signal: AbortSignal) => {
         const res = await axios
             .post('/slice', { parts }, { responseType: 'text', signal })
-            .catch((err: AxiosError) => {
-                console.log('axios', err.code);
-            });
         return res?.data;
     };
     const extrude = async (amount: number) => {
