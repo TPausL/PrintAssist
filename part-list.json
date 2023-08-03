@@ -7,7 +7,8 @@
     { "id": "caravan", "index": 4, "name": "Wohnwagen", "icon": "caravan.svg" },
     { "id": "anchor", "index": 6, "name": "Anker", "icon": "anchor.svg" },
     { "id": "camper", "index": 5, "name": "Wohnwagen", "icon": "camper.svg" },
-    { "id": "wheel", "index": 7, "name": "Steuerrad", "icon": "wheel.svg" }
+    { "id": "wheel", "index": 7, "name": "Steuerrad", "icon": "wheel.svg" },
+     {"id": "motorcycle", "index": 8, "name": "Motorrad"}
   ],
   "parts": [
     {
@@ -189,6 +190,34 @@
       "time": 1693,
       "name": "mittleres Wohnmobil",
       "group": "camper"
+    },
+    {
+      "size": "groß",
+      "file": "motorbike_large.stl",
+      "price": 0.08,
+      "weight": 2.87,
+      "time": 2139,
+      "name": "großes Motorrad",
+      "group": "motorbike"
+
+    },{
+      "size": "mittel",
+      "file": "motorbike_middle.stl",
+      "price": 0.05,
+      "weight": 1.79,
+      "time": 1472,
+      "name": "mittleres Motorrad",
+      "group": "motorbike"
+
+    },{
+      "size": "klein",
+      "file": "motorbike_small.stl",
+      "price": 0.02,
+      "weight": 0.86,
+      "time": 880,
+      "name": "kleines Motorrad",
+      "group": "motorbike"
+        
     }
   ]
 }
