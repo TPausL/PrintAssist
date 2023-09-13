@@ -47,6 +47,7 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
     return (
         <div className={classNames(styles.root, className)}>
             <Tabs vertical={!isMobile} large className={styles['part-select-tabs']}>
+                {/* @ts-ignore */}
                 {partList.sizes.map((size) => GetTab(size))}
             </Tabs>
         </div>
