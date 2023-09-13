@@ -31,15 +31,14 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
     const [temperature, setTemperature] = useState<number>(0);
     const [printing, setPrinting] = useState<boolean>(false);
     const slice = async (parts: ListPart[], signal: AbortSignal) => {
-        const res = await axios
-            .post('/slice', { parts }, { responseType: 'text', signal })
+        const res = await axios.post('/slice', { parts }, { responseType: 'text', signal });
         return res?.data;
     };
     const extrude = async (amount: number) => {
         try {
             await axios.post(
                 '/api/printer/tool',
-                { command: 'extrude', amount: amount },
+                { command: 'extrude', amount: amount, speed: 150 },
                 axiosSettings
             );
             toast('Extruding ' + amount + 'mm', 'success');

@@ -10,9 +10,9 @@ const newParts = await Promise.all(
     map(partList.parts, async (p) => {
         //const p = partList.parts[i];
         const model_file = './models/' + p.file;
-        const gcode_file = './models/' + p.file.split('.')[0] + '.gcode';
+        const gcode_file = './models/generated/' + p.file.split('.')[0] + '.gcode';
         console.log(model_file);
-        const { stdout } = await exec('prusa-slicer -g --load config.ini ' + model_file);
+        const { stdout } = await exec(`prusa-slicer -o ${gcode_file} -g --load config.ini ` + model_file);
         const gcode = await readFile(gcode_file, { encoding: 'utf8' });
         return { ...p, ...extractDataFromString(gcode) };
     })

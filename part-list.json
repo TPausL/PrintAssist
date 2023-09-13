@@ -8,7 +8,29 @@
     { "id": "anchor", "index": 6, "name": "Anker", "icon": "anchor.svg" },
     { "id": "camper", "index": 5, "name": "Wohnwagen", "icon": "camper.svg" },
     { "id": "wheel", "index": 7, "name": "Steuerrad", "icon": "wheel.svg" },
-     {"id": "motorcycle", "index": 8, "name": "Motorrad"}
+    { "id": "motorbike", "index": 8, "name": "Motorrad", "icon": "motorbike.svg" },
+    { "id": "ghost", "index": 9, "name": "Gespenst" }
+  ],
+  "sizes": [
+    {
+      "id": "klein",
+      "name": { "mobile": "Klein", "desktop": "Klein - 3cm" },
+      "index": 0,
+      "icon": { "icon": "arrows-vertical", "size": 16 }
+    },
+    {
+      "id": "mittel",
+      "name": { "mobile": "Mittel", "desktop": "Mittel - 4cm" },
+      "index": 1,
+      "icon": { "icon": "arrows-vertical", "size": 20 }
+    },
+    {
+      "id": "groß",
+      "name": { "mobile": "Groß", "desktop": "Groß - 5cm" },
+      "index": 2,
+      "icon": { "icon": "arrows-vertical", "size": 24 }
+    },
+    { "id": "other", "name": { "desktop": "Andere" }, "index": 3, "icon": { "icon": "more" } }
   ],
   "parts": [
     {
@@ -160,7 +182,7 @@
       "file": "anker_large.stl",
       "price": 0.07,
       "weight": 2.38,
-      "time": 1924,
+      "time": 1923,
       "name": "großer Anker",
       "group": "anchor"
     },
@@ -186,38 +208,73 @@
       "size": "mittel",
       "file": "camper_middle.stl",
       "price": 0.05,
-      "weight": 1.92,
-      "time": 1693,
+      "weight": 1.76,
+      "time": 1560,
       "name": "mittleres Wohnmobil",
       "group": "camper"
     },
     {
       "size": "groß",
       "file": "motorbike_large.stl",
-      "price": 0.08,
-      "weight": 2.87,
-      "time": 2139,
+      "price": 0.07,
+      "weight": 2.61,
+      "time": 2218,
       "name": "großes Motorrad",
       "group": "motorbike"
-
-    },{
+    },
+    {
       "size": "mittel",
       "file": "motorbike_middle.stl",
-      "price": 0.05,
-      "weight": 1.79,
-      "time": 1472,
+      "price": 0.04,
+      "weight": 1.63,
+      "time": 1516,
       "name": "mittleres Motorrad",
       "group": "motorbike"
-
-    },{
+    },
+    {
       "size": "klein",
       "file": "motorbike_small.stl",
-      "price": 0.02,
-      "weight": 0.86,
-      "time": 880,
+      "price": 0.03,
+      "weight": 0.94,
+      "time": 960,
       "name": "kleines Motorrad",
       "group": "motorbike"
-        
+    },
+    {
+      "name": "erstauntes Gespenst",
+      "size": "other",
+      "file": "ghost_amazed.stl",
+      "price": 0.11,
+      "weight": 3.88,
+      "time": 4406,
+      "group": "ghost",
+      "custom": {
+        "icon": "ghost_amazed.png"
+      }
+    },
+    {
+      "name": " glueckliches Gespenst",
+      "size": "other",
+      "file": "ghost_happy.3mf",
+      "price": 0.11,
+      "weight": 4.03,
+      "time": 4609,
+      "group": "ghost",
+      "custom": {
+        "icon": "ghost_happy.png"
+      }
+    },
+    {
+      "name": "zorniges Gespenst",
+      "size": "other",
+      "file": "ghost_angry.stl",
+      "price": 0.11,
+      "weight": 3.89,
+      "time": 4413,
+      "group": "ghost",
+      "custom": {
+        "icon": "ghost_angry.png"
+      }
     }
   ]
 }

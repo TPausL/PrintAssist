@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import styles from './part-select.module.scss';
 import { ItemListRendererProps, Select2 } from '@blueprintjs/select';
 import { MenuItem, Button, Tabs, Tab, Icon } from '@blueprintjs/core';
-import { PartType, PartGroup } from '../../types';
+import { PartType, PartGroup, PartSize } from '../../types';
 import { PartSelectMenu } from '../part-select-menu/part-select-menu';
 import { countBy, flatten, map, size, sum } from 'lodash';
 import { PartSelectItem } from '../part-select-item/part-select-item';
@@ -22,66 +22,32 @@ export interface PartSelectProps {
 export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
     const [selectedPart, setSelectedPart] = useState<PartType | undefined>();
     const isMobile = useMediaQuery({ query: '(max-width: 1224px)' });
+    const GetTab = (size: PartSize) => (
+        <Tab
+            key={size.id}
+            id={size.id}
+            title={isMobile ? size.name?.mobile ?? size.name.desktop : size.name.desktop}
+            icon={
+                size.icon && (
+                    <div className={styles['tab-icon-wrapper']}>
+                        <Icon {...size.icon} className={styles['tab-icon']} />
+                    </div>
+                )
+            }
+            tagContent={
+                isMobile
+                    ? undefined
+                    : sum(map(partList.parts, (part) => (part.size == size.id ? 1 : 0)))
+            }
+            panel={<PartSelectItem onPartAdded={onPartAdded} size={size.id} />}
+            panelClassName={styles['tab-panel']}
+        />
+    );
 
     return (
         <div className={classNames(styles.root, className)}>
             <Tabs vertical={!isMobile} large className={styles['part-select-tabs']}>
-                <Tab
-                    id={'klein'}
-                    title={
-                        <>
-                            Klein {!isMobile && <span style={{ opacity: '50%' }}> - 3cm</span>}
-                        </>
-                    }
-                    icon={
-                        <div className={styles['tab-icon-wrapper']}>
-                            <Icon
-                                icon={'arrows-vertical'}
-                                size={16}
-                                className={styles['tab-icon']}
-                            />
-                        </div>
-                    }
-                    tagContent={isMobile ? undefined: sum(map(partList.parts, (part) => (part.size == 'klein' ? 1 : 0)))}
-                    panel={<PartSelectItem onPartAdded={onPartAdded} size={'klein'} />}
-                    panelClassName={styles['tab-panel']}
-                />
-                <Tab
-                    id={'mittel'}
-                    title={
-                        <>
-                            Mittel{!isMobile && <span style={{ opacity: '50%' }}> - 4cm</span>}
-                        </>
-                    }
-                    icon={
-                        <div className={styles['tab-icon-wrapper']}>
-                            <Icon
-                                icon={'arrows-vertical'}
-                                size={20}
-                                className={styles['tab-icon']}
-                            />
-                        </div>
-                    }
-                    tagContent={isMobile ? undefined: sum(map(partList.parts, (part) => (part.size == 'mittel' ? 1 : 0)))}
-                    panel={<PartSelectItem onPartAdded={onPartAdded} size={'mittel'} />}
-                    panelClassName={styles['tab-panel']}
-                />{' '}
-                <Tab
-                    id={'gross'}
-                    title={
-                        <>
-                            Groß{!isMobile && <span style={{ opacity: '50%' }}> - 5cm</span>}
-                        </>
-                    }
-                    icon={
-                        <div className={styles['tab-icon-wrapper']}>
-                            <Icon icon={'arrows-vertical'} size={24} />
-                        </div>
-                    }
-                    tagContent={isMobile ? undefined: sum(map(partList.parts, (part) => (part.size == 'groß' ? 1 : 0)))}
-                    panel={<PartSelectItem onPartAdded={onPartAdded} size={'groß'} />}
-                    panelClassName={styles['tab-panel']}
-                />
+                {partList.sizes.map((size) => GetTab(size))}
             </Tabs>
         </div>
     );

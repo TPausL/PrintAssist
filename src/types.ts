@@ -8,6 +8,10 @@ export interface PartType {
     weight: number;
     price: number;
     group: PartGroup['id'];
+    custom?: {
+        icon: string;
+        [key: string]: any;
+    };
 }
 export type ListPart = PartType & { count: number };
 export interface PartGroup {
@@ -15,6 +19,18 @@ export interface PartGroup {
     name: string;
     icon?: IconName;
     index: number;
+}
+export interface PartSize {
+    id: string;
+    name: {
+        mobile?: string;
+        desktop: string;
+    };
+    index: number;
+    icon?: {
+        icon: IconName;
+        size: number | undefined;
+    };
 }
 
 export interface Settings {

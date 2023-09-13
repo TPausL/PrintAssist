@@ -27,5 +27,4 @@ db/**
 *.sw?
 
 #slicer generated
-*.gcode
-*.3mf
+models/generated
