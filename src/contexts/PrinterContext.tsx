@@ -3,9 +3,10 @@ import { useSettings } from './contextHooks';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { ListPart, Spool, Spools } from '../types';
 import { toast } from '../utils';
-import { compact, pickBy, set, sortBy, toArray } from 'lodash';
+import { compact, get, pickBy, set, sortBy, toArray } from 'lodash';
 //@ts-ignore
 import { sortFn } from 'color-sorter';
+import { OverlayToaster, ToasterInstance } from '@blueprintjs/core';
 
 export interface PrinterContextType {
     print(gcode: string): void;
@@ -21,11 +22,12 @@ export interface PrinterContextType {
 }
 
 export const PrinterContext = createContext<PrinterContextType | undefined>(undefined);
-
+const toaster = OverlayToaster.create({ position: 'top' });
 export function PrinterContextProvider(props: { children: React.ReactNode }) {
     const settings = useSettings();
-
-    const [spools, setSpools] = useState<Spools>();
+    const tempInterval = useRef<NodeJS.Timeout | undefined>(undefined);
+    const printerLive = useRef<boolean | undefined>(undefined);
+    const [spools, setSpools] = useState<Spools | undefined>();
     const [axiosSettings, setAxiosSettings] = useState<AxiosRequestConfig | undefined>(undefined);
     const [light, setLight] = useState<boolean>(false);
     const [temperature, setTemperature] = useState<number>(0);
@@ -110,8 +112,8 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
         const res = await axios.get('/api/printer', axiosSettings);
         return { temp: res.data.temperature.tool0.actual, printing: res.data.state.flags.printing };
     };
-    useEffect(() => {
-        if (axiosSettings === undefined) return;
+
+    const getStaticData = async () => {
         axios
             .get(
                 '/plugin/SpoolManager/loadSpoolsByQuery?filterName=hideInactiveSpools&from=0&to=3000&sortColumn=lastUse&sortOrder=desc',
@@ -128,18 +130,54 @@ export function PrinterContextProvider(props: { children: React.ReactNode }) {
                 setSpools(res.data);
             })
             .catch((err) => {
-                console.log('error gettings spool data', err);
+                console.log('error gettings spool data');
             });
-
         axios.get('/plugin/enclosure/outputs/1', axiosSettings).then((res) => {
             setLight(res.data.currentLight);
         });
-        const tempInterval = setInterval(async () => {
+    };
+
+    const getDynamicData = async () => {
+        try {
             const { temp, printing } = await getPrinterData();
             setTemperature(temp);
             setPrinting(printing);
+            console.log('got data');
+            if (!printerLive.current) {
+                console.log('printer is live');
+                printerLive.current = true;
+                toaster.clear();
+                getStaticData();
+            }
+        } catch (err) {
+            console.log('error getting printer data');
+
+            if (printerLive.current !== false) {
+                console.log(printerLive, "printer isn't live");
+                printerLive.current = false;
+
+                toaster.show({
+                    message: 'Der Drucker kann nicht erreicht werden!',
+                    intent: 'danger',
+                    timeout: 0,
+                    isCloseButtonShown: false,
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        if (axiosSettings === undefined) return;
+        clearInterval(tempInterval.current);
+        setSpools(undefined);
+        setTemperature(0);
+        setLight(false);
+        getDynamicData();
+        tempInterval.current = setInterval(async () => {
+            getDynamicData();
         }, 5000);
     }, [axiosSettings]);
+
     return (
         <PrinterContext.Provider
             value={{

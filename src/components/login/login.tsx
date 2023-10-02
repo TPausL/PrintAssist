@@ -25,9 +25,16 @@ export const Login = ({ className, children }: LoginProps) => {
     );
 
     const login = async () => {
+        if (
+            import.meta.env.VITE_BOT_TOKEN &&
+            new URLSearchParams(window.location.search).get('bot_token') ==
+                import.meta.env.VITE_BOT_TOKEN
+        ) {
+            setLoggedIn(true);
+            return;
+        }
         try {
             const session = await api.current.toSession();
-
             setLoggedIn(true);
         } catch (err) {
             const res = await api.current.createBrowserLoginFlow({

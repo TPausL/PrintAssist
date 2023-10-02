@@ -40,11 +40,9 @@ function App() {
 
     const controllerRef = useRef<AbortController | undefined>(new AbortController());
 
-
     useEffect(() => {
         if (parts.length > 0) {
             setSlicing(() => true);
-            console.log('parts');
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
             printer
@@ -55,14 +53,12 @@ function App() {
                     setGcode(res);
                 })
                 .finally(() => {
-                    
-                   // console.log('slicing finally');
-                    
+                    // console.log('slicing finally');
                 })
                 .catch((err: AxiosError) => {
-                    if(err.code !== "ERR_CANCELED"){
+                    if (err.code !== 'ERR_CANCELED') {
                         toast('Error slicing', 'danger');
-                        setSlicing(false)
+                        setSlicing(false);
                     }
                 });
         }
@@ -76,7 +72,7 @@ function App() {
                     <Navbar.Heading>PrintAssist</Navbar.Heading>
                 </Navbar.Group>
                 <Navbar.Group align="right">
-                    {!(printer?.printing) && (
+                    {!printer?.printing && (
                         <>
                             {temptest && (
                                 <>
