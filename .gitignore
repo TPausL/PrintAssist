@@ -28,3 +28,4 @@ db/**
 
 #slicer generated
 models/generated
+*.gcode
