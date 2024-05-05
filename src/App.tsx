@@ -25,7 +25,6 @@ import { AxiosError } from 'axios';
 import { ConfirmDialog } from './components/confirm-dialog/confirm-dialog';
 import { GcodePreview } from './components/gcode-preview/gcode-preview';
 import moment from 'moment';
-import { SpoolColorPicker } from './components/spool-color-picker/spool-color-picker';
 import { useMediaQuery } from 'react-responsive';
 import { PrinterSettingsCard } from './components/printer-settings-card/printer-settings-card';
 

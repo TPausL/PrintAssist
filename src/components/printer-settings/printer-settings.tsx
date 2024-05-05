@@ -113,6 +113,7 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                                 label={f}
                                 onChange={(e) => {
                                     let newFunctions = [...(changedPrinter?.functions ?? [])];
+                                    //@ts-ignore
                                     if (e.target.checked) {
                                         newFunctions.push(f);
                                     } else {
@@ -142,6 +143,7 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                     </div>
                     <div className={styles['button-container']}>
                         {printer.functions?.map((f) => {
+                            //@ts-ignore
                             return functionButtons[f];
                         })}
                     </div>

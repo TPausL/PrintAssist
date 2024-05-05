@@ -26,7 +26,7 @@ function BrowserStoreContextProvider(props: { children: React.ReactNode }) {
     };
 
     useEffect(() => {
-        setCurrentPrinter(getCurrentPrinter());
+        setCurrentPrinter(getCurrentPrinter() as string);
     }, []);
     return (
         <BrowserStoreContext.Provider

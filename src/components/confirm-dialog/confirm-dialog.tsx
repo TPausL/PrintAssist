@@ -4,7 +4,6 @@ import { Button, Dialog, DialogBody, DialogFooter, DialogProps, Text } from '@bl
 import { useEffect, useState } from 'react';
 import { set } from 'lodash';
 import SettingsDialog_module from '../settings-dialog/settings-dialog.module.scss';
-import { SpoolColorPicker } from '../spool-color-picker/spool-color-picker';
 
 export interface ConfirmDialogProps extends Omit<DialogProps, 'title' | 'onClosed'> {
     className?: string;
@@ -39,7 +38,6 @@ export const ConfirmDialog = ({
             <DialogBody>
                 <div className={SettingsDialog_module['list-item']}>
                     <Text>In welcher Farbe wird gedruckt?</Text>
-                    <SpoolColorPicker />
                 </div>
             </DialogBody>
             <DialogFooter

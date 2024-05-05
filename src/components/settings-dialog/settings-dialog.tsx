@@ -32,9 +32,6 @@ export const SettingsDialog = ({ className, isOpen, onClosed, ...rest }: Setting
     const settings = useSettings();
     const [values, setValues] = useState<Settings | undefined>(undefined);
     const printer = usePrinter();
-    const [spool, setSpool] = useState<Spool | undefined>(
-        printer?.spools?.selectedSpools ? printer?.spools?.selectedSpools[0] : undefined
-    );
 
     useEffect(() => {
         if (settings) {

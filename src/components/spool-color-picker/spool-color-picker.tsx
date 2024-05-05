@@ -18,7 +18,7 @@ export interface SpoolColorPickerProps {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps) => {
-    const printer = usePrinter();
+    /* const printer = usePrinter();
     const [spool, setSpool] = useState<Spool | undefined>(undefined);
 
     useEffect(() => {
@@ -51,10 +51,10 @@ export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps)
         <Select2
             className={!printer?.spools?.allSpools?.length ? 'bp4-skeleton' : undefined}
             items={printer?.spools?.allSpools ?? []}
-            inputProps={{autoFocus: false}}
+            inputProps={{ autoFocus: false }}
             itemRenderer={(spool, { handleClick }) => (
                 <MenuItem
-                key={spool.databaseId}
+                    key={spool.databaseId}
                     icon={<Icon icon="full-circle" color={spool.color} />}
                     onClick={handleClick}
                     role="listoption"
@@ -109,5 +109,5 @@ export const SpoolColorPicker = ({ className, onChange }: SpoolColorPickerProps)
                 }
             />
         </Select2>
-    );
+    ); */
 };

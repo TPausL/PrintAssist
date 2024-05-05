@@ -15,7 +15,7 @@ const newParts = await Promise.all(
                 const gcode_file = './models/generated/' + p.file.split('.')[0] + '.gcode';
                 console.log(model_file);
                 const { stdout } = await exec(
-                    `prusa-slicer -o ${gcode_file} -g --load config.ini ` + model_file
+                    `prusa-slicer -o ${gcode_file} -g --load config.mk3s.ini ` + model_file
                 );
                 const gcode = await readFile(gcode_file, { encoding: 'utf8' });
                 resolve({ ...p, ...extractDataFromString(gcode) });
