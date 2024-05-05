@@ -1,26 +1,21 @@
-import classNames from 'classnames';
-import styles from './settings-dialog.module.scss';
 import {
     Button,
+    Checkbox,
     Dialog,
     DialogBody,
     DialogFooter,
     DialogProps,
     Divider,
     InputGroup,
-    MenuItem,
     Spinner,
     Text,
 } from '@blueprintjs/core';
-import { Settings, Spool } from '../../types';
+import classNames from 'classnames';
+import { isEqual, pickBy, toArray } from 'lodash';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { usePrinter, useSettings } from '../../contexts/contextHooks';
-import { isEqual, omit, pick, set } from 'lodash';
-import { Divide } from '@blueprintjs/icons/lib/esm/generated-icons/16px/paths';
-import { Select2 } from '@blueprintjs/select';
-import { toast } from '../../utils';
-import { SpoolColorPicker } from '../spool-color-picker/spool-color-picker';
+import { PrinterFunction, Settings, Spool } from '../../types';
+import styles from './settings-dialog.module.scss';
 
 export interface SettingsDialogProps extends Omit<DialogProps, 'title' | 'onClosed'> {
     className?: string;
@@ -71,75 +66,164 @@ export const SettingsDialog = ({ className, isOpen, onClosed, ...rest }: Setting
         <Dialog {...rest} title={'Settings'} isOpen={open} onClose={() => setOpen(false)}>
             {!loading ? (
                 <DialogBody>
-                    <h3>Printer Connection</h3>
-                    <div className={classNames(styles.root, styles.root)}>
-                        <div className={styles['list-item']}>
-                            <div>
-                                <Text>Enter url of your server</Text>
+                    <h1>Printer Connections</h1>
+                    {values?.printers?.map((printer, i) => (
+                        <>
+                            <h3>{printer.name ?? printer.serverType}</h3>
+                            <div className={classNames(styles.root, styles.root)}>
+                                <div className={styles['list-item']}>
+                                    <div>
+                                        <Text>Enter url of your server</Text>
+                                    </div>
+                                    <div>
+                                        <InputGroup
+                                            value={printer?.hostname}
+                                            onChange={(e) => {
+                                                let before = toArray(
+                                                    pickBy(
+                                                        values.printers,
+                                                        (p, index) => parseInt(index) < i
+                                                    )
+                                                );
+
+                                                let after = toArray(
+                                                    pickBy(
+                                                        values.printers,
+                                                        (p, index) => parseInt(index) > i
+                                                    )
+                                                );
+
+                                                setValues({
+                                                    ...(values as Settings),
+                                                    printers: [
+                                                        ...before,
+                                                        {
+                                                            ...values.printers[i],
+                                                            hostname: e.target.value,
+                                                        },
+                                                        ...after,
+                                                    ],
+                                                });
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    submit();
+                                                }
+                                            }}
+                                        ></InputGroup>
+                                    </div>
+                                </div>
+                                <div className={styles['list-item']}>
+                                    <div>
+                                        <Text>Enter api key of your server</Text>
+                                    </div>
+                                    <div>
+                                        <InputGroup
+                                            value={printer?.api_key}
+                                            onChange={(e) => {
+                                                let before = toArray(
+                                                    pickBy(
+                                                        values.printers,
+                                                        (p, index) => parseInt(index) < i
+                                                    )
+                                                );
+
+                                                let after = toArray(
+                                                    pickBy(
+                                                        values.printers,
+                                                        (p, index) => parseInt(index) > i
+                                                    )
+                                                );
+
+                                                setValues({
+                                                    ...(values as Settings),
+                                                    printers: [
+                                                        ...before,
+                                                        {
+                                                            ...values.printers[i],
+                                                            api_key: e.target.value,
+                                                        },
+                                                        ...after,
+                                                    ],
+                                                });
+                                            }}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    submit();
+                                                }
+                                            }}
+                                        ></InputGroup>
+                                    </div>
+                                </div>
+                                <div className={styles['list-item']}>
+                                    <div>
+                                        <Text>Chosse supported functions</Text>
+                                    </div>
+                                    <div>
+                                        {Object.keys(PrinterFunction).map((f) => (
+                                            <Checkbox
+                                                checked={printer.functions.includes(
+                                                    f as PrinterFunction
+                                                )}
+                                                label={f}
+                                                onChange={(e) => {
+                                                    //@ts-ignore
+                                                    let before = toArray(
+                                                        pickBy(
+                                                            values.printers,
+                                                            (p, index) => parseInt(index) < i
+                                                        )
+                                                    );
+                                                    let functions = [
+                                                        ...values.printers[i].functions,
+                                                    ];
+                                                    if (functions.includes(f as PrinterFunction)) {
+                                                        functions.splice(
+                                                            functions.indexOf(f as PrinterFunction),
+                                                            1
+                                                        );
+                                                    } else {
+                                                        functions.push(f as PrinterFunction);
+                                                    }
+
+                                                    let after = toArray(
+                                                        pickBy(
+                                                            values.printers,
+                                                            (p, index) => parseInt(index) > i
+                                                        )
+                                                    );
+
+                                                    setValues({
+                                                        ...(values as Settings),
+                                                        printers: [
+                                                            ...before,
+                                                            {
+                                                                ...values.printers[i],
+                                                                functions,
+                                                            },
+                                                            ...after,
+                                                        ],
+                                                    });
+                                                }}
+                                            ></Checkbox>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <InputGroup
-                                    value={values?.printer?.hostname}
-                                    onChange={(e) =>
-                                        setValues({
-                                            ...(values as Settings),
-                                            printer: {
-                                                ...(values as Settings).printer,
-                                                hostname: e.target.value,
-                                            },
-                                        })
-                                    }
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            submit();
-                                        }
-                                    }}
-                                ></InputGroup>
-                            </div>
-                        </div>
-                        <div className={styles['list-item']}>
-                            <div>
-                                <Text>Enter api key of your server</Text>
-                            </div>
-                            <div>
-                                <InputGroup
-                                    value={values?.printer?.api_key}
-                                    onChange={(e) =>
-                                        setValues({
-                                            ...(values as Settings),
-                                            printer: {
-                                                ...(values as Settings).printer,
-                                                api_key: e.target.value,
-                                            },
-                                        })
-                                    }
-                                    onKeyDown={(e) => {
-                                        if (e.key === 'Enter') {
-                                            submit();
-                                        }
-                                    }}
-                                ></InputGroup>
-                            </div>
-                        </div>
-                        <Divider></Divider>
-                        <h3>Spool</h3>
-                        <div className={styles['list-item']}>
-                            <div>
-                                <Text>Select which color to print in</Text>
-                            </div>
-                            <div>
-                                <SpoolColorPicker />
-                            </div>
-                        </div>
-                        <DialogFooter
-                            minimal
-                            actions={
-                                <Button intent="success" onClick={submit}>
-                                    save
-                                </Button>
-                            }
-                        />
-                    </div>
+
+                            {i < values.printers.length - 1 && (
+                                <Divider style={{ borderWidth: 5 }}></Divider>
+                            )}
+                        </>
+                    ))}
+                    <DialogFooter
+                        minimal
+                        actions={
+                            <Button intent="success" onClick={submit}>
+                                save
+                            </Button>
+                        }
+                    />
                 </DialogBody>
             ) : (
                 <Spinner></Spinner>

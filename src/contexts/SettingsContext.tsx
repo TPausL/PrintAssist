@@ -2,13 +2,19 @@
 
 import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
-import { Settings } from '../types';
+import { Printer, Settings } from '../types';
 import { toast } from '../utils';
+
 //if (import.meta.env.VITE_ENVIRONMENT === 'development') {
-//axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'http://TimoLaptop:4000';
 //}
 export const SettingsContext = createContext<
-    { values?: Settings; updateSettings: (s: Settings) => void } | undefined
+    | {
+          values?: Settings;
+          updateSettings: (s: Settings) => void;
+          updatePrinter: (p: Printer) => void;
+      }
+    | undefined
 >(undefined);
 
 export function SettingsContextProvider(props: { children: React.ReactNode }) {
@@ -31,8 +37,16 @@ export function SettingsContextProvider(props: { children: React.ReactNode }) {
                 throw err;
             });
     };
+
+    const updatePrinter = async (printer: Printer) => {
+        let printers = [...(settings?.printers ?? [])];
+        let index = printers.findIndex((p) => p.id === printer.id);
+        printers[index] = printer;
+        let newSettings = { ...settings, printers: printers };
+        await updateSettings(newSettings);
+    };
     return (
-        <SettingsContext.Provider value={{ values: settings, updateSettings }}>
+        <SettingsContext.Provider value={{ values: settings, updateSettings, updatePrinter }}>
             {props.children}
         </SettingsContext.Provider>
     );

@@ -8,10 +8,11 @@ import { SettingsContextProvider } from '../../../contexts/SettingsContext';
 export default createBoard({
     name: 'App',
     Board: () => (
-        <SettingsContextProvider>
-            <PrinterContextProvider></PrinterContextProvider>
-            <App />
-        </SettingsContextProvider>
+        <BrowserStoreContextProvider>
+            <SettingsContextProvider>
+                <PrinterWrapper />
+            </SettingsContextProvider>
+        </BrowserStoreContextProvider>
     ),
     environmentProps: {
         canvasHeight: 784,

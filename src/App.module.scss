@@ -1,5 +1,4 @@
 .App {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   width: 100%;
@@ -55,4 +54,10 @@ body {
 .info-item {
   display: flex;
   flex-direction: column;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 24px;
+  width: 100%;
 }

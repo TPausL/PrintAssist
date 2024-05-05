@@ -3,11 +3,13 @@ import {
     Button,
     ButtonGroup,
     Card,
+    Divider,
     Icon,
     Navbar,
     Overlay,
     ProgressBar,
     Spinner,
+    Text,
 } from '@blueprintjs/core';
 import { filter, includes, isEqual, map, remove, set } from 'lodash';
 import { useEffect, useRef, useState } from 'react';
@@ -25,6 +27,7 @@ import { GcodePreview } from './components/gcode-preview/gcode-preview';
 import moment from 'moment';
 import { SpoolColorPicker } from './components/spool-color-picker/spool-color-picker';
 import { useMediaQuery } from 'react-responsive';
+import { PrinterSettingsCard } from './components/printer-settings-card/printer-settings-card';
 
 function App() {
     const [parts, setParts] = useState<ListPart[]>([]);
@@ -48,13 +51,10 @@ function App() {
             printer
                 ?.slice(parts, controllerRef.current?.signal)
                 .then((res) => {
-                    //console.log('slicing then');
                     setSlicing(() => false);
                     setGcode(res);
                 })
-                .finally(() => {
-                    // console.log('slicing finally');
-                })
+                .finally(() => {})
                 .catch((err: AxiosError) => {
                     if (err.code !== 'ERR_CANCELED') {
                         toast('Error slicing', 'danger');
@@ -64,6 +64,14 @@ function App() {
         }
     }, [parts]);
 
+    useEffect(() => {
+        console.log(printer);
+        setConfirmOpen(false);
+        setParts([]);
+        setGcode(undefined);
+    }, [printer?.selectedPrinter.id]);
+
+    console.log(printer?.selectedPrinter.name, printer?.live);
     const temptest = Boolean(printer?.temperature && printer?.temperature >= 195);
     return (
         <div className={styles.App}>
@@ -71,158 +79,164 @@ function App() {
                 <Navbar.Group>
                     <Navbar.Heading>PrintAssist</Navbar.Heading>
                 </Navbar.Group>
-                <Navbar.Group align="right">
-                    {!printer?.printing && (
-                        <>
-                            {temptest && (
+            </Navbar>
+            <div className={styles['content-wrapper']}>
+                <div style={{ flex: 3, display: 'flex' }}>
+                    <PrinterSettingsCard />
+                </div>
+                <div style={{ flex: 9, display: 'flex' }}>
+                    <div className={styles.content}>
+                        <Card elevation={2} className={styles['part-select-card']}>
+                            <h2
+                                style={{
+                                    marginTop: 0,
+                                    marginBottom: 20,
+                                }}
+                            >
+                                Drucken auf: {printer?.selectedPrinter.name}
+                            </h2>
+                            {!printer?.live && (
+                                <Text>
+                                    Schalte den Drucker ein um zu drucken oder wähle einen anderen
+                                    Drucker!
+                                </Text>
+                            )}
+                            {printer?.live && (
                                 <>
-                                    <h3 style={{ margin: 0, marginRight: 8 }}>Filament</h3>
-                                    <Button
-                                        icon="arrow-left"
-                                        text={isMobile ? undefined : 'zurückziehen'}
-                                        minimal
-                                        large
-                                        onClick={() => printer?.extrude(-5)}
-                                    />
-                                    <Button
-                                        icon="arrow-right"
-                                        text={isMobile ? undefined : 'rausdrücken'}
-                                        minimal
-                                        large
-                                        onClick={() => printer?.extrude(5)}
-                                    />
-                                    <Navbar.Divider />
+                                    <>
+                                        <div>
+                                            <PartSelect
+                                                onPartAdded={(part) => {
+                                                    {
+                                                        if (
+                                                            includes(map(parts, 'name'), part.name)
+                                                        ) {
+                                                            const p = remove(
+                                                                parts,
+                                                                (p) =>
+                                                                    p.name.toLowerCase() ==
+                                                                    part.name.toLowerCase()
+                                                            )[0];
+                                                            setParts([
+                                                                ...parts,
+                                                                { ...p, count: p.count + 1 },
+                                                            ]);
+                                                        } else {
+                                                            setParts([
+                                                                ...parts,
+                                                                { ...part, count: 1 },
+                                                            ]);
+                                                        }
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    </>
+                                    {Boolean(parts.length) && (
+                                        <>
+                                            <Divider style={{ margin: 24 }} />
+                                            <div>
+                                                <PartList
+                                                    parts={parts}
+                                                    handlers={{
+                                                        remove: (p) =>
+                                                            setParts(
+                                                                filter(parts, (v) => !isEqual(v, p))
+                                                            ),
+                                                        count: (p, c) => {
+                                                            const i = parts.indexOf(p);
+                                                            parts[i] = { ...parts[i], count: c };
+                                                            setParts([...parts]);
+                                                        },
+                                                    }}
+                                                />
+                                            </div>
+                                            <Divider style={{ margin: 24 }} />
+                                        </>
+                                    )}
+                                    {Boolean(parts.length) && (
+                                        <div>
+                                            <div className={styles['button-group-wrapper']}>
+                                                {slicing && (
+                                                    <ProgressBar
+                                                        value={1}
+                                                        animate={true}
+                                                        className={styles['progress-bar']}
+                                                    />
+                                                )}
+                                                {gcode && !slicing && (
+                                                    <div className={styles['summary-wrapper']}>
+                                                        <div className={styles['info-wrapper']}>
+                                                            <div className={styles['info-item']}>
+                                                                <h3>Zeit:</h3>
+                                                                <p>
+                                                                    {moment
+                                                                        .duration(
+                                                                            extractDataFromGcode(
+                                                                                gcode
+                                                                            ).time,
+                                                                            's'
+                                                                        )
+                                                                        .humanize()}
+                                                                </p>
+                                                            </div>
+                                                            <div className={styles['info-item']}>
+                                                                <h3>Gewicht:</h3>
+                                                                <p>
+                                                                    {extractDataFromGcode(
+                                                                        gcode
+                                                                    ).weight.toFixed(2)}
+                                                                    g
+                                                                </p>
+                                                            </div>
+                                                            <div className={styles['info-item']}>
+                                                                <h3>Preis:</h3>
+                                                                <p>
+                                                                    {extractDataFromGcode(
+                                                                        gcode
+                                                                    ).price.toFixed(2)}
+                                                                    €
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        <GcodePreview gcode={gcode} />
+                                                        <ButtonGroup
+                                                            vertical={!isMobile}
+                                                            large
+                                                            className={styles['button-group']}
+                                                        >
+                                                            <AnchorButton
+                                                                icon="download"
+                                                                href={
+                                                                    'data:text/plain;charset=utf-8,' +
+                                                                    encodeURIComponent(
+                                                                        gcode as string
+                                                                    )
+                                                                }
+                                                                download={'print.gcode'}
+                                                            >
+                                                                Herunterladen
+                                                            </AnchorButton>
+                                                            <Button
+                                                                icon="print"
+                                                                intent="primary"
+                                                                onClick={() => {
+                                                                    setConfirmOpen(true);
+                                                                }}
+                                                            >
+                                                                Drucken
+                                                            </Button>
+                                                        </ButtonGroup>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    )}
                                 </>
                             )}
-
-                            <Button
-                                icon="flame"
-                                text={isMobile ? undefined : 'Aufheizen'}
-                                minimal
-                                large
-                                onClick={() => printer?.heat(200)}
-                            />
-                            <Navbar.Divider />
-                        </>
-                    )}
-                    <Button
-                        icon={
-                            <Icon
-                                icon="lightbulb"
-                                color={printer?.lightState ? 'yellow' : undefined}
-                            />
-                        }
-                        text={isMobile ? undefined : 'Licht'}
-                        minimal
-                        large
-                        onClick={() => printer?.toggleLight()}
-                    />
-
-                    <Navbar.Divider />
-                    <Button
-                        icon="cog"
-                        text={isMobile ? undefined : 'Einstellungen'}
-                        minimal
-                        large
-                        onClick={() => setSettingsOpen(true)}
-                    />
-                </Navbar.Group>
-            </Navbar>
-            <div className={styles.content}>
-                <Card elevation={2} className={styles['part-select-card']}>
-                    <PartSelect
-                        onPartAdded={(part) => {
-                            {
-                                if (includes(map(parts, 'name'), part.name)) {
-                                    const p = remove(
-                                        parts,
-                                        (p) => p.name.toLowerCase() == part.name.toLowerCase()
-                                    )[0];
-                                    setParts([...parts, { ...p, count: p.count + 1 }]);
-                                } else {
-                                    setParts([...parts, { ...part, count: 1 }]);
-                                }
-                            }
-                        }}
-                    />
-                </Card>
-                {Boolean(parts.length) && (
-                    <Card elevation={2}>
-                        <PartList
-                            parts={parts}
-                            handlers={{
-                                remove: (p) => setParts(filter(parts, (v) => !isEqual(v, p))),
-                                count: (p, c) => {
-                                    const i = parts.indexOf(p);
-                                    parts[i] = { ...parts[i], count: c };
-                                    setParts([...parts]);
-                                },
-                            }}
-                        />
-                    </Card>
-                )}
-                {Boolean(parts.length) && (
-                    <Card elevation={2}>
-                        <div className={styles['button-group-wrapper']}>
-                            {slicing && (
-                                <ProgressBar
-                                    value={1}
-                                    animate={true}
-                                    className={styles['progress-bar']}
-                                />
-                            )}
-                            {gcode && !slicing && (
-                                <div className={styles['summary-wrapper']}>
-                                    <div className={styles['info-wrapper']}>
-                                        <div className={styles['info-item']}>
-                                            <h3>Zeit:</h3>
-                                            <p>
-                                                {moment
-                                                    .duration(extractDataFromGcode(gcode).time, 's')
-                                                    .humanize()}
-                                            </p>
-                                        </div>
-                                        <div className={styles['info-item']}>
-                                            <h3>Gewicht:</h3>
-                                            <p>{extractDataFromGcode(gcode).weight.toFixed(2)}g</p>
-                                        </div>
-                                        <div className={styles['info-item']}>
-                                            <h3>Preis:</h3>
-                                            <p>{extractDataFromGcode(gcode).price.toFixed(2)}€</p>
-                                        </div>
-                                    </div>
-                                    <GcodePreview gcode={gcode} />
-                                    <ButtonGroup
-                                        vertical={!isMobile}
-                                        large
-                                        className={styles['button-group']}
-                                    >
-                                        {!isMobile && <SpoolColorPicker />}
-                                        <AnchorButton
-                                            icon="download"
-                                            href={
-                                                'data:text/plain;charset=utf-8,' +
-                                                encodeURIComponent(gcode as string)
-                                            }
-                                            download={'print.gcode'}
-                                        >
-                                            Herunterladen
-                                        </AnchorButton>
-                                        <Button
-                                            icon="print"
-                                            intent="primary"
-                                            onClick={() => {
-                                                setConfirmOpen(true);
-                                            }}
-                                        >
-                                            Drucken
-                                        </Button>
-                                    </ButtonGroup>
-                                </div>
-                            )}
-                        </div>
-                    </Card>
-                )}
+                        </Card>
+                    </div>
+                </div>
             </div>
 
             <SettingsDialog isOpen={settingsOpen} onClosed={() => setSettingsOpen(false)} />

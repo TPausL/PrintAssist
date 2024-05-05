@@ -33,11 +33,38 @@ export interface PartSize {
     };
 }
 
+export enum ServerType {
+    OCTOPRINT = 'octoprint',
+    PRUSALINK = 'prusalink',
+    PRUSACONNECT = 'prusaconnect',
+}
+
+export enum PrinterType {
+    ENDER3 = 'ender3',
+    MK3S = 'mk3s',
+}
+
+export enum PrinterFunction {
+    LIGHT = 'light',
+    MANUELL_EXTRUSION = 'manuell_extrusion',
+    FILAMENT_UNLOAD = 'filament_unload',
+    NOZZLE_TEMP = 'nozzle_temp',
+    BED_TEMP = 'bed_temp',
+    PREHEAT = 'preheat',
+    CAMERA = 'camera',
+}
+
+export interface Printer {
+    id: string;
+    hostname: string;
+    api_key: string;
+    name: string;
+    serverType: ServerType;
+    printerType: PrinterType;
+    functions: PrinterFunction[];
+}
 export interface Settings {
-    printer: {
-        hostname: string;
-        api_key: string;
-    };
+    printers: Printer[];
 }
 
 export interface TypedRequestBody<T> extends Express.Request {
@@ -46,6 +73,7 @@ export interface TypedRequestBody<T> extends Express.Request {
 
 export type SliceRequest = TypedRequestBody<{
     parts: ListPart[];
+    printerType: PrinterType;
 }>;
 
 export type Spool = {

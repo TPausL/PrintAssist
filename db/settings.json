@@ -1,1 +1,1 @@
-{"printer":{"hostname":"https://print.tipela.de","api_key":"F4836CCFAC624B9CAA4FA4409CC9391C"}}
+{"printers":[{"hostname":"https://print.tipela.de","api_key":"F4836CCFAC624B9CAA4FA4409CC9391C","serverType":"octoprint","printerType":"ender3","functions":["light","manuell_extrusion","nozzle_temp"],"name":"Ender 3","id":"ender3"},{"hostname":"http://tipelaprinter","api_key":"110DD717C9944C26BEE63D8246C5CF6E","serverType":"octoprint","printerType":"mk3s","functions":["filament_unload","nozzle_temp","manuell_extrusion"],"name":"Prusa MK3S+","id":"mk3s"}]}

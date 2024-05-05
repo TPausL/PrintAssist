@@ -34,6 +34,7 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
                     </div>
                 )
             }
+            tagProps={{ round: true }}
             tagContent={
                 isMobile
                     ? undefined

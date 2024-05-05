@@ -11,16 +11,20 @@ import { PrinterContextProvider } from './contexts/PrinterContext';
 import { Login } from './components/login/login';
 import moment from 'moment';
 import 'moment/dist/locale/de';
+import { BrowserStoreContextProvider } from './contexts/BrowserStoreContext';
+import PrinterWrapper from './PrinterWrapper';
 
 moment.locale('de');
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
-    <Login>
-        <SettingsContextProvider>
-            <PrinterContextProvider>
-                <App />
-            </PrinterContextProvider>
-        </SettingsContextProvider>
-    </Login>
+    <>
+        <Login>
+            <BrowserStoreContextProvider>
+                <SettingsContextProvider>
+                    <PrinterWrapper />
+                </SettingsContextProvider>
+            </BrowserStoreContextProvider>
+        </Login>
+    </>
 );

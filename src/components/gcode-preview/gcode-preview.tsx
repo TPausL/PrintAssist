@@ -73,46 +73,51 @@ export const GcodePreview = ({ className, gcode }: GcodePreviewProps) => {
         let currentPosition: { x: number; y: number } = { x: 0, y: 0 };
         let offset = { x: 0, y: 0 };
 
-
-        const x_min = min(compact(map(gcodeCommands, "parameters.X"))) ;
-        const y_min = min(compact(map(gcodeCommands, "parameters.Y"))) ;
-        const x_max = max(compact(map(gcodeCommands, "parameters.X"))) ;
-        const y_max = max(compact(map(gcodeCommands, "parameters.Y"))) ;
-
-      
+        const x_min = min(compact(map(gcodeCommands, 'parameters.X')));
+        const y_min = min(compact(map(gcodeCommands, 'parameters.Y')));
+        const x_max = max(compact(map(gcodeCommands, 'parameters.X')));
+        const y_max = max(compact(map(gcodeCommands, 'parameters.Y')));
 
         for (const command of gcodeCommands) {
             if (command.command === 'G1' || command.command === 'G0') {
                 if (command.parameters.X && command.parameters.Y) {
                     if (isEqual(offset, { x: 0, y: 0 })) {
-                        offset = { x: command.parameters.X /2, y: command.parameters.Y/2 };
+                        offset = { x: command.parameters.X / 2, y: command.parameters.Y / 2 };
                     }
-                    //console.log(command.parameters)
                     const x = command.parameters.X ?? currentPosition.x;
                     const y = command.parameters.Y ?? currentPosition.y;
                     if (command.parameters?.E > 0) {
-                        svgPaths.push(`M ${currentPosition.x - x_min -2},${currentPosition.y - y_min-2} L ${x- x_min-2},${y-y_min-2}`);
+                        svgPaths.push(
+                            `M ${currentPosition.x - x_min - 2},${
+                                currentPosition.y - y_min - 2
+                            } L ${x - x_min - 2},${y - y_min - 2}`
+                        );
                     } else {
-                        svgPaths.push(`M ${currentPosition.x - x_min-2},${currentPosition.y - y_min-2}`);
+                        svgPaths.push(
+                            `M ${currentPosition.x - x_min - 2},${currentPosition.y - y_min - 2}`
+                        );
                     }
                     currentPosition = { x, y };
                 }
             }
         }
 
-      //rotate(180, ${x_max / 2}, ${y_max / 2})
-      //transform={`translate(-${x_offset -2} -${y_offset-2}) rotate(180, ${x_max / 2}, ${y_max / 2})`} 
-      //viewBox={`0 0 ${x_max} ${y_max}`} width={x_max +2} height={y_max + 2}
-      const svg_padding = 4
-        return <svg style={{transform: "rotate(180deg)"}} xmlns="http://www.w3.org/2000/svg" viewBox={`-${svg_padding} -${svg_padding} ${x_max - x_min + svg_padding} ${y_max - y_min + svg_padding}`} height="200">
-            <path  strokeWidth={0.3} fill="none" stroke={printer?.spools?.selectedSpools[0].color} d={`${svgPaths.join(" ")}`} />
-        </svg>;
-      
-       
+        //rotate(180, ${x_max / 2}, ${y_max / 2})
+        //transform={`translate(-${x_offset -2} -${y_offset-2}) rotate(180, ${x_max / 2}, ${y_max / 2})`}
+        //viewBox={`0 0 ${x_max} ${y_max}`} width={x_max +2} height={y_max + 2}
+        const svg_padding = 4;
+        return (
+            <svg
+                style={{ transform: 'rotate(180deg)' }}
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox={`-${svg_padding} -${svg_padding} ${x_max - x_min + svg_padding} ${
+                    y_max - y_min + svg_padding
+                }`}
+                height="200"
+            >
+                <path strokeWidth={0.3} fill="none" stroke={'black'} d={`${svgPaths.join(' ')}`} />
+            </svg>
+        );
     }
-    return (
-        <div >
-            {GenerateSVGFromGCode(extractSecondLayer(parseGCode(gcode)))}
-        </div>
-    );
+    return <div>{GenerateSVGFromGCode(extractSecondLayer(parseGCode(gcode)))}</div>;
 };
