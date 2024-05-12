@@ -118,11 +118,7 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                                 setChangedPrinter({ ...changedPrinter, printerType: item });
                             }}
                         >
-                            <Button
-                                text={printer.printerType}
-                                rightIcon="double-caret-vertical"
-                                placeholder="Select a film"
-                            />
+                            <Button text={printer.printerType} rightIcon="double-caret-vertical" />
                         </Select2>
                     </div>
                 </div>
@@ -145,11 +141,7 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                                 setChangedPrinter({ ...changedPrinter, serverType: item });
                             }}
                         >
-                            <Button
-                                text={printer.serverType}
-                                rightIcon="double-caret-vertical"
-                                placeholder="Select a film"
-                            />
+                            <Button text={printer.serverType} rightIcon="double-caret-vertical" />
                         </Select2>
                     </div>
                 </div>
