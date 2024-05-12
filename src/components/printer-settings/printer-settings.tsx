@@ -1,25 +1,23 @@
-import classNames from 'classnames';
-import styles from './printer-settings.module.scss';
 import {
-    FormGroup,
-    InputGroup,
-    Text,
-    SwitchProps,
-    Switch,
+    Button,
     Checkbox,
     Divider,
-    Navbar,
+    InputGroup,
+    MenuItem,
+    Tab,
     TabId,
     Tabs,
-    Tab,
-    Button,
+    Text,
 } from '@blueprintjs/core';
-import { useEffect, useRef, useState } from 'react';
-import { Printer, PrinterFunction } from '../../types';
-import { useBrowserStore, usePrinter, useSettings } from '../../contexts/contextHooks';
-import { toast } from '../../utils';
+import { Select2 } from '@blueprintjs/select';
+import classNames from 'classnames';
 import { isEqual } from 'lodash';
+import { useEffect, useRef, useState } from 'react';
+import { useBrowserStore, usePrinter, useSettings } from '../../contexts/contextHooks';
+import { Printer, PrinterFunction, PrinterType, ServerType } from '../../types';
+import { toast } from '../../utils';
 import functionButtons from '../function-buttons';
+import styles from './printer-settings.module.scss';
 
 export interface PrinterSettingsProps {
     className?: string;
@@ -99,6 +97,60 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                                 if (e.key === 'Enter') submit(changedPrinter);
                             }}
                         />
+                    </div>
+                </div>
+                <div className={styles['list-item']}>
+                    <div>
+                        <Text>Druckertyp</Text>
+                    </div>
+                    <div>
+                        <Select2
+                            items={Object.values(PrinterType)}
+                            itemRenderer={(item, { handleClick }) => (
+                                <MenuItem
+                                    key={item}
+                                    onClick={handleClick}
+                                    role="listoption"
+                                    text={item}
+                                />
+                            )}
+                            onItemSelect={(item) => {
+                                setChangedPrinter({ ...changedPrinter, printerType: item });
+                            }}
+                        >
+                            <Button
+                                text={printer.printerType}
+                                rightIcon="double-caret-vertical"
+                                placeholder="Select a film"
+                            />
+                        </Select2>
+                    </div>
+                </div>
+                <div className={styles['list-item']}>
+                    <div>
+                        <Text>Servertyp</Text>
+                    </div>
+                    <div>
+                        <Select2
+                            items={Object.values(ServerType)}
+                            itemRenderer={(item, { handleClick }) => (
+                                <MenuItem
+                                    key={item}
+                                    onClick={handleClick}
+                                    role="listoption"
+                                    text={item}
+                                />
+                            )}
+                            onItemSelect={(item) => {
+                                setChangedPrinter({ ...changedPrinter, serverType: item });
+                            }}
+                        >
+                            <Button
+                                text={printer.serverType}
+                                rightIcon="double-caret-vertical"
+                                placeholder="Select a film"
+                            />
+                        </Select2>
                     </div>
                 </div>
                 <Divider />

@@ -3,11 +3,19 @@ import ViteExpress from 'vite-express';
 import { exec } from 'child_process';
 import { promisify } from 'util';
 import bodyParser from 'body-parser';
-import { Settings, SliceRequest, TypedRequestBody } from '../src/types';
-import _ from 'lodash';
+import {
+    Printer,
+    PrinterType,
+    ServerType,
+    Settings,
+    SliceRequest,
+    TypedRequestBody,
+} from '../src/types';
+import _, { uniqueId } from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
+import { randomUUID } from 'crypto';
 
 const { map } = _;
 
@@ -76,13 +84,39 @@ app.post('/settings', async (req: TypedRequestBody<Settings>, res) => {
     res.send({ success: true, data: req.body });
 });
 
+const defaultPrinter: Omit<Printer, 'id'> = {
+    name: 'Dummy Printer (change me later)',
+    hostname: '',
+    api_key: '',
+    printerType: 'dummy' as PrinterType,
+    functions: [],
+    serverType: 'dummy' as ServerType,
+};
 //get request to send the settings in the json file back to the user
 app.get('/settings', async (req, res) => {
     //check whether the settings file exists
     if (!fs.existsSync('./db/settings.json')) {
-        fs.writeFileSync('./db/settings.json', JSON.stringify({}));
+        let defaultSettings: Settings = {
+            printers: [
+                {
+                    ...defaultPrinter,
+                    id: randomUUID(),
+                },
+            ],
+        };
+        fs.writeFileSync('./db/settings.json', JSON.stringify(defaultSettings));
     }
     //send file content as application json to user
     res.sendFile(path.join(process.cwd(), '/db/settings.json'));
+});
+
+app.post('/settings/new-printer', async (req, res) => {
+    const settings: Settings = JSON.parse(fs.readFileSync('./db/settings.json').toString());
+    settings.printers.push({
+        ...defaultPrinter,
+        id: randomUUID(),
+    });
+    fs.writeFileSync('./db/settings.json', JSON.stringify(settings));
+    res.send({ success: true, data: settings });
 });
 ViteExpress.listen(app, 3000, () => console.log('server is listening'));

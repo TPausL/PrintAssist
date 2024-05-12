@@ -30,6 +30,8 @@ const getService = (printer: Printer) => {
             throw new Error('PrusaLink not implemented');
         case ServerType.PRUSACONNECT:
             throw new Error('PrusaConnect not implemented');
+        case ServerType.DUMMY:
+            return new BaseService();
         default:
             throw new Error('Unknown printer type');
     }

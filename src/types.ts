@@ -37,11 +37,13 @@ export enum ServerType {
     OCTOPRINT = 'octoprint',
     PRUSALINK = 'prusalink',
     PRUSACONNECT = 'prusaconnect',
+    DUMMY = 'dummy',
 }
 
 export enum PrinterType {
     ENDER3 = 'ender3',
     MK3S = 'mk3s',
+    DUMMY = 'dummy',
 }
 
 export enum PrinterFunction {

@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import styles from './printer-settings-card.module.scss';
-import { Card, H5, Navbar, TabId, Tabs, Tab, Colors, Icon } from '@blueprintjs/core';
+import { Card, H5, Navbar, TabId, Tabs, Tab, Colors, Icon, Button } from '@blueprintjs/core';
 import { useEffect, useState } from 'react';
 import { useBrowserStore, usePrinter, useSettings } from '../../contexts/contextHooks';
 import { PrinterSettings } from '../printer-settings/printer-settings';
@@ -73,6 +73,10 @@ export const PrinterSettingsCard = ({ className }: PrinterSettingsCardProps) => 
                             <span style={{ transform: 'translateY(-1px)' }}>{p.name}</span>
                         </Tab>
                     ))}
+                    <Button minimal onClick={() => settings?.addPrinter()}>
+                        <Icon icon="plus" />
+                    </Button>
+
                     <Tabs.Expander />
                 </Tabs>
             </Card>

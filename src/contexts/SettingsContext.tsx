@@ -1,6 +1,6 @@
 // react constext provider
 
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { Printer, Settings } from '../types';
 import { toast } from '../utils';
@@ -13,6 +13,7 @@ export const SettingsContext = createContext<
           values?: Settings;
           updateSettings: (s: Settings) => void;
           updatePrinter: (p: Printer) => void;
+          addPrinter: () => void;
       }
     | undefined
 >(undefined);
@@ -45,8 +46,21 @@ export function SettingsContextProvider(props: { children: React.ReactNode }) {
         let newSettings = { ...settings, printers: printers };
         await updateSettings(newSettings);
     };
+
+    const addPrinter = async () => {
+        try {
+            let res = await axios.post('/settings/new-printer');
+            setSettings(res.data.data);
+            toast('Printer added', 'success');
+        } catch (err) {
+            toast(err as string, 'danger');
+            throw err;
+        }
+    };
     return (
-        <SettingsContext.Provider value={{ values: settings, updateSettings, updatePrinter }}>
+        <SettingsContext.Provider
+            value={{ values: settings, updateSettings, updatePrinter, addPrinter }}
+        >
             {props.children}
         </SettingsContext.Provider>
     );
