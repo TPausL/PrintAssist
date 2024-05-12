@@ -2,7 +2,7 @@ import partList from './part-list.json' assert { type: 'json' };
 import util from 'node:util';
 import moment from 'moment';
 const exec = util.promisify((await import('node:child_process')).exec);
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import _ from 'lodash';
 const { map } = _;
 
