@@ -6,7 +6,7 @@ import { Printer, Settings } from '../types';
 import { toast } from '../utils';
 
 //if (import.meta.env.VITE_ENVIRONMENT === 'development') {
-axios.defaults.baseURL = 'http://TimoLaptop:4000';
+// axios.defaults.baseURL = 'http://TimoLaptop:4000';
 //}
 export const SettingsContext = createContext<
     | {
