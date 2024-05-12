@@ -80,8 +80,7 @@ app.post('/settings', async (req: TypedRequestBody<Settings>, res) => {
 app.get('/settings', async (req, res) => {
     //check whether the settings file exists
     if (!fs.existsSync('./db/settings.json')) {
-        res.status(404).send('settings not found');
-        return;
+        fs.writeFileSync('./db/settings.json', JSON.stringify({}));
     }
     //send file content as application json to user
     res.sendFile(path.join(process.cwd(), '/db/settings.json'));

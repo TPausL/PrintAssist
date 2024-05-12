@@ -9,7 +9,7 @@ const UnloadButton = () => {
 
 const HeatButton = () => {
     const { heat } = usePrinter() as PrinterContextType;
-    return <Button onClick={() => heat(200)} icon="flame" text="Düse Aufheizen" intent="success" />;
+    return <Button onClick={() => heat(205)} icon="flame" text="Düse Aufheizen" intent="success" />;
 };
 
 const LightButton = () => {

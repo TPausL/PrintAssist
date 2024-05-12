@@ -6,6 +6,15 @@ import { readFile, writeFile } from 'node:fs/promises';
 import _ from 'lodash';
 const { map } = _;
 
+try {
+    await rm("./models/generated", { recursive: true, force: true });
+        const createDir = await mkdir("./models/generated", { recursive: true });
+    
+    console.log(`created ${createDir}`);
+} catch (err) {
+    console.error(err.message);
+}
+
 const newParts = await Promise.all(
     map(partList.parts, (p, i) => {
         return new Promise((resolve) =>
