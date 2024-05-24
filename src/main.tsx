@@ -19,12 +19,10 @@ moment.locale('de');
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
     <>
-        <Login>
-            <BrowserStoreContextProvider>
-                <SettingsContextProvider>
-                    <PrinterWrapper />
-                </SettingsContextProvider>
-            </BrowserStoreContextProvider>
-        </Login>
+        <BrowserStoreContextProvider>
+            <SettingsContextProvider>
+                <PrinterWrapper />
+            </SettingsContextProvider>
+        </BrowserStoreContextProvider>
     </>
 );

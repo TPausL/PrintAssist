@@ -27,9 +27,9 @@ const getService = (printer: Printer) => {
         case ServerType.OCTOPRINT:
             return new OctoPrintService(printer);
         case ServerType.PRUSALINK:
-            throw new Error('PrusaLink not implemented');
+            console.error('PrusaLink not implemented');
         case ServerType.PRUSACONNECT:
-            throw new Error('PrusaConnect not implemented');
+            console.error('PrusaConnect not implemented');
         case ServerType.DUMMY:
             return new BaseService();
         default:
