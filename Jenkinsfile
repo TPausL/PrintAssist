@@ -13,7 +13,7 @@ pipeline {
             steps {
                 container('kaniko') {
                     script {
-                        buildDockerImage(additionalImageTags: ["latest"])
+                        buildDockerImage(additionalImageTags: ["latest"], imageName: "print-assist")
                     }
                 }
             }
