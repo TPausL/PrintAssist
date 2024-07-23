@@ -8,7 +8,6 @@ import '@blueprintjs/icons/lib/css/blueprint-icons.css';
 import '@blueprintjs/select/lib/css/blueprint-select.css';
 import { SettingsContextProvider } from './contexts/SettingsContext';
 import { PrinterContextProvider } from './contexts/PrinterContext';
-import { Login } from './components/login/login';
 import moment from 'moment';
 import 'moment/dist/locale/de';
 import { BrowserStoreContextProvider } from './contexts/BrowserStoreContext';

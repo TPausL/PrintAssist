@@ -17,6 +17,6 @@
       "jsx": "react-jsx",
       "outDir": "dist-backend"
     },
-    "include": ["backend"],
+    "include": ["backend", "src/types"],
   }
   
