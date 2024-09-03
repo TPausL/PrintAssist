@@ -413,7 +413,7 @@
     },
     {
       "size": "klein",
-      "file": "snowflak_small.stl",
+      "file": "snowflake_small.stl",
       "price": 0.04,
       "weight": 1.5,
       "time": 1000,
@@ -422,7 +422,7 @@
     },
     {
       "size": "mittel",
-      "file": "snowflak_middle.stl",
+      "file": "snowflake_middle.stl",
       "price": 0.06,
       "weight": 2.5,
       "time": 1500,
@@ -431,7 +431,7 @@
     },
     {
       "size": "groß",
-      "file": "snowflak_large.stl",
+      "file": "snowflake_large.stl",
       "price": 0.08,
       "weight": 3.5,
       "time": 2000,
