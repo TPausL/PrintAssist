@@ -52,10 +52,11 @@ app.post('/slice', async (req: SliceRequest, res) => {
         );
         console.log(files);
         const r = await execAsync(
-            `prusa-slicer --load config.${req.body.printerType
+            `prusa-slicer --load config.${
+                req.body.printerType
             }.ini -o ./models/generated/out.gcode -g -m ${files.join(' ')}`
         );
-        console.log(r)
+        console.log(r);
         res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
     } catch (e) {
         if (e.stderr.includes('could not fit')) {
@@ -106,7 +107,7 @@ app.get('/settings', async (req, res) => {
                 },
             ],
         };
-        await mkdirAsync('./db');
+        if (!fs.existsSync('./db')) await mkdirAsync('./db');
         fs.writeFileSync('./db/settings.json', JSON.stringify(defaultSettings));
     }
     //send file content as application json to user
@@ -122,4 +123,4 @@ app.post('/settings/new-printer', async (req, res) => {
     fs.writeFileSync('./db/settings.json', JSON.stringify(settings));
     res.send({ success: true, data: settings });
 });
-ViteExpress.listen(app, 3000, () => console.log('server is listening'))
+ViteExpress.listen(app, 3000, () => console.log('server is listening'));
