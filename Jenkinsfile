@@ -1,5 +1,8 @@
 @Library("teckdigital") _
 def appName = "print-assist"
+def localBranchToGitopsValuesPath = [
+    'main': 'print-assist/deployment.yml',
+]
 
 pipeline {
    agent {
@@ -15,6 +18,20 @@ pipeline {
                     script {
                         buildDockerImage(additionalImageTags: ["latest"], imageName: "tpausl/print-assist")
                     }
+                }
+            }
+        }
+
+        stage('Update GitOps') {
+            when {
+                expression {
+                    return localBranchToGitopsValuesPath.containsKey(getLocalBranchName())
+                }
+            }
+            steps {
+                script {
+                    def valuesPath = localBranchToGitopsValuesPath[getLocalBranchName()]
+                    updateGitops(appName: appName, valuesPath: valuesPath, credentialsId: "tpaus-github-user", gitOpsRepo: "https://github.com/tpausl/gitops.git", fileTypeToChange: "deployment", containerName: "print-assist")
                 }
             }
         }
