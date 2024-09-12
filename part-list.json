@@ -437,6 +437,15 @@
       "time": 2000,
       "name": "große Schneeflocke",
       "group": "snowflake"
+    },
+    {
+      "size": "other",
+      "file": "circle.stl",
+      "price": 0.1,
+      "weight": 4.5,
+      "time": 2500,
+      "name": "Farbkreis",
+      "group": ""
     }
   ]
 }
