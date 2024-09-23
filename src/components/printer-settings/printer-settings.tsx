@@ -43,7 +43,7 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                 if (timeoutRef.current) clearTimeout(timeoutRef.current);
                 timeoutRef.current = setTimeout(() => {
                     submit(changedPrinter);
-                }, 1500);
+                }, 7500);
             }
         }, [changedPrinter]);
 
