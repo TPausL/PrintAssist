@@ -123,4 +123,11 @@ app.post('/settings/new-printer', async (req, res) => {
     fs.writeFileSync('./db/settings.json', JSON.stringify(settings));
     res.send({ success: true, data: settings });
 });
+
+app.delete('/settings/printer/:id', async (req, res) => {
+    const settings: Settings = JSON.parse(fs.readFileSync('./db/settings.json').toString());
+    settings.printers = settings.printers.filter((p) => p.id !== req.params.id);
+    fs.writeFileSync('./db/settings.json', JSON.stringify(settings));
+    res.send({ success: true, data: settings });
+});
 ViteExpress.listen(app, 3000, () => console.log('server is listening'));

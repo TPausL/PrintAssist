@@ -1,31 +1,28 @@
-// react constext provider
-
 import axios, { AxiosError } from 'axios';
 import { createContext, useEffect, useState } from 'react';
 import { Printer, Settings } from '../types';
 import { toast } from '../utils';
 
-//if (import.meta.env.VITE_ENVIRONMENT === 'development') {
-// axios.defaults.baseURL = 'http://TimoLaptop:4000';
-//}
 export const SettingsContext = createContext<
     | {
           values?: Settings;
           updateSettings: (s: Settings) => void;
           updatePrinter: (p: Printer) => void;
           addPrinter: () => void;
+          deletePrinter: (printerId: string) => void;
       }
     | undefined
 >(undefined);
 
 export function SettingsContextProvider(props: { children: React.ReactNode }) {
     const [settings, setSettings] = useState<Settings | undefined>(undefined);
+
     useEffect(() => {
         axios.get('/settings').then((res) => {
             setSettings(res.data);
         });
     }, []);
-    useEffect(() => {}, [settings]);
+
     const updateSettings = async (settings: Settings) => {
         await axios
             .post('/settings', settings)
@@ -57,9 +54,23 @@ export function SettingsContextProvider(props: { children: React.ReactNode }) {
             throw err;
         }
     };
+
+    const deletePrinter = async (printerId: string) => {
+        try {
+            let res = await axios.delete(`/settings/printer/${printerId}`);
+            // let printers = settings?.printers.filter((p) => p.id !== printerId) ?? [];
+            let newSettings = { ...settings, printers: res.data.data.printers };
+            setSettings(newSettings);
+            toast('Printer deleted', 'success');
+        } catch (err) {
+            toast(err as string, 'danger');
+            throw err;
+        }
+    };
+
     return (
         <SettingsContext.Provider
-            value={{ values: settings, updateSettings, updatePrinter, addPrinter }}
+            value={{ values: settings, updateSettings, updatePrinter, addPrinter, deletePrinter }}
         >
             {props.children}
         </SettingsContext.Provider>

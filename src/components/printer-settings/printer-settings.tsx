@@ -172,6 +172,18 @@ export const PrinterSettings = ({ className, printer }: PrinterSettingsProps) =>
                         ))}
                     </div>
                 </div>
+                <Button
+                    intent="danger"
+                    large
+                    onClick={() => {
+                        if (window.confirm('Are you sure you want to delete this printer?')) {
+                            settings?.deletePrinter(printer.id);
+                        }
+                    }}
+                    style={{ marginTop: 24 }}
+                >
+                    Delete Printer
+                </Button>
             </>
         );
     };
