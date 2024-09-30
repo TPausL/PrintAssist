@@ -440,6 +440,15 @@
     },
     {
       "size": "other",
+      "file": "sonderstern.stl",
+      "price": 0.1,
+      "weight": 4.5,
+      "time": 2500,
+      "name": "Stern für Frau",
+      "group": "star"
+    },
+    {
+      "size": "other",
       "file": "circle.stl",
       "price": 0.1,
       "weight": 4.5,
