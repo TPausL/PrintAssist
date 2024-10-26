@@ -350,7 +350,7 @@
     },
     {
       "size": "mittel",
-      "file": "stern_4.stl",
+      "file": "stern_4.3mf",
       "price": 0.05,
       "weight": 1.91,
       "time": 995,
@@ -359,7 +359,7 @@
     },
     {
       "size": "groß",
-      "file": "stern_5.stl",
+      "file": "stern_5.3mf",
       "price": 0.08,
       "weight": 3.08,
       "time": 1517,
