@@ -331,6 +331,15 @@
       "group": "moose"
     },
     {
+      "size": "klein",
+      "file": "engel_3.stl",
+      "price": 0.06,
+      "weight": 2.3,
+      "time": 1175,
+      "name": "kleiner Engel",
+      "group": "angel"
+    },
+    {
       "size": "mittel",
       "file": "engel_4.stl",
       "price": 0.06,
