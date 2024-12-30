@@ -100,139 +100,155 @@ function App() {
                                     Drucker!
                                 </Text>
                             )}
-                            {printer?.live && (
-                                <>
+                            {printer?.live ||
+                                (true && (
                                     <>
-                                        <div>
-                                            <PartSelect
-                                                onPartAdded={(part) => {
-                                                    {
-                                                        if (
-                                                            includes(map(parts, 'name'), part.name)
-                                                        ) {
-                                                            const p = remove(
-                                                                parts,
-                                                                (p) =>
-                                                                    p.name.toLowerCase() ==
-                                                                    part.name.toLowerCase()
-                                                            )[0];
-                                                            setParts([
-                                                                ...parts,
-                                                                { ...p, count: p.count + 1 },
-                                                            ]);
-                                                        } else {
-                                                            setParts([
-                                                                ...parts,
-                                                                { ...part, count: 1 },
-                                                            ]);
-                                                        }
-                                                    }
-                                                }}
-                                            />
-                                        </div>
-                                    </>
-                                    {Boolean(parts.length) && (
                                         <>
-                                            <Divider style={{ margin: 24 }} />
                                             <div>
-                                                <PartList
-                                                    parts={parts}
-                                                    handlers={{
-                                                        remove: (p) =>
-                                                            setParts(
-                                                                filter(parts, (v) => !isEqual(v, p))
-                                                            ),
-                                                        count: (p, c) => {
-                                                            const i = parts.indexOf(p);
-                                                            parts[i] = { ...parts[i], count: c };
-                                                            setParts([...parts]);
-                                                        },
+                                                <PartSelect
+                                                    onPartAdded={(part) => {
+                                                        {
+                                                            if (
+                                                                includes(
+                                                                    map(parts, 'name'),
+                                                                    part.name
+                                                                )
+                                                            ) {
+                                                                const p = remove(
+                                                                    parts,
+                                                                    (p) =>
+                                                                        p.name.toLowerCase() ==
+                                                                        part.name.toLowerCase()
+                                                                )[0];
+                                                                setParts([
+                                                                    ...parts,
+                                                                    { ...p, count: p.count + 1 },
+                                                                ]);
+                                                            } else {
+                                                                setParts([
+                                                                    ...parts,
+                                                                    { ...part, count: 1 },
+                                                                ]);
+                                                            }
+                                                        }
                                                     }}
                                                 />
                                             </div>
-                                            <Divider style={{ margin: 24 }} />
                                         </>
-                                    )}
-                                    {Boolean(parts.length) && (
-                                        <div>
-                                            <div className={styles['button-group-wrapper']}>
-                                                {slicing && (
-                                                    <ProgressBar
-                                                        value={1}
-                                                        animate={true}
-                                                        className={styles['progress-bar']}
-                                                    />
-                                                )}
-                                                {gcode && !slicing && (
-                                                    <div className={styles['summary-wrapper']}>
-                                                        <div className={styles['info-wrapper']}>
-                                                            <div className={styles['info-item']}>
-                                                                <h3>Zeit:</h3>
-                                                                <p>
-                                                                    {moment
-                                                                        .duration(
-                                                                            extractDataFromGcode(
-                                                                                gcode
-                                                                            ).time,
-                                                                            's'
-                                                                        )
-                                                                        .humanize()}
-                                                                </p>
-                                                            </div>
-                                                            <div className={styles['info-item']}>
-                                                                <h3>Gewicht:</h3>
-                                                                <p>
-                                                                    {extractDataFromGcode(
-                                                                        gcode
-                                                                    ).weight.toFixed(2)}
-                                                                    g
-                                                                </p>
-                                                            </div>
-                                                            <div className={styles['info-item']}>
-                                                                <h3>Preis:</h3>
-                                                                <p>
-                                                                    {extractDataFromGcode(
-                                                                        gcode
-                                                                    ).price.toFixed(2)}
-                                                                    €
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <GcodePreview gcode={gcode} />
-                                                        <ButtonGroup
-                                                            vertical={!isMobile}
-                                                            large
-                                                            className={styles['button-group']}
-                                                        >
-                                                            <AnchorButton
-                                                                icon="download"
-                                                                href={
-                                                                    'data:text/plain;charset=utf-8,' +
-                                                                    encodeURIComponent(
-                                                                        gcode as string
+                                        {Boolean(parts.length) && (
+                                            <>
+                                                <Divider style={{ margin: 24 }} />
+                                                <div>
+                                                    <PartList
+                                                        parts={parts}
+                                                        handlers={{
+                                                            remove: (p) =>
+                                                                setParts(
+                                                                    filter(
+                                                                        parts,
+                                                                        (v) => !isEqual(v, p)
                                                                     )
-                                                                }
-                                                                download={'print.gcode'}
+                                                                ),
+                                                            count: (p, c) => {
+                                                                const i = parts.indexOf(p);
+                                                                parts[i] = {
+                                                                    ...parts[i],
+                                                                    count: c,
+                                                                };
+                                                                setParts([...parts]);
+                                                            },
+                                                        }}
+                                                    />
+                                                </div>
+                                                <Divider style={{ margin: 24 }} />
+                                            </>
+                                        )}
+                                        {Boolean(parts.length) && (
+                                            <div>
+                                                <div className={styles['button-group-wrapper']}>
+                                                    {slicing && (
+                                                        <ProgressBar
+                                                            value={1}
+                                                            animate={true}
+                                                            className={styles['progress-bar']}
+                                                        />
+                                                    )}
+                                                    {gcode && !slicing && (
+                                                        <div className={styles['summary-wrapper']}>
+                                                            <div className={styles['info-wrapper']}>
+                                                                <div
+                                                                    className={styles['info-item']}
+                                                                >
+                                                                    <h3>Zeit:</h3>
+                                                                    <p>
+                                                                        {moment
+                                                                            .duration(
+                                                                                extractDataFromGcode(
+                                                                                    gcode
+                                                                                ).time,
+                                                                                's'
+                                                                            )
+                                                                            .humanize()}
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    className={styles['info-item']}
+                                                                >
+                                                                    <h3>Gewicht:</h3>
+                                                                    <p>
+                                                                        {extractDataFromGcode(
+                                                                            gcode
+                                                                        ).weight.toFixed(2)}
+                                                                        g
+                                                                    </p>
+                                                                </div>
+                                                                <div
+                                                                    className={styles['info-item']}
+                                                                >
+                                                                    <h3>Preis:</h3>
+                                                                    <p>
+                                                                        {extractDataFromGcode(
+                                                                            gcode
+                                                                        ).price.toFixed(2)}
+                                                                        €
+                                                                    </p>
+                                                                </div>
+                                                            </div>
+                                                            <GcodePreview gcode={gcode} />
+                                                            <ButtonGroup
+                                                                vertical={!isMobile}
+                                                                large
+                                                                className={styles['button-group']}
                                                             >
-                                                                Herunterladen
-                                                            </AnchorButton>
-                                                            <Button
-                                                                icon="print"
-                                                                intent="primary"
-                                                                onClick={() => {
-                                                                    setConfirmOpen(true);
-                                                                }}
-                                                            >
-                                                                Drucken
-                                                            </Button>
-                                                        </ButtonGroup>
-                                                    </div>
-                                                )}
+                                                                <AnchorButton
+                                                                    icon="download"
+                                                                    href={
+                                                                        'data:text/plain;charset=utf-8,' +
+                                                                        encodeURIComponent(
+                                                                            gcode as string
+                                                                        )
+                                                                    }
+                                                                    download={'print.gcode'}
+                                                                >
+                                                                    Herunterladen
+                                                                </AnchorButton>
+                                                                <Button
+                                                                    icon="print"
+                                                                    intent="primary"
+                                                                    onClick={() => {
+                                                                        setConfirmOpen(true);
+                                                                    }}
+                                                                >
+                                                                    Drucken
+                                                                </Button>
+                                                            </ButtonGroup>
+                                                        </div>
+                                                    )}
+                                                </div>
                                             </div>
-                                        </div>
-                                    )}
-                                </>
-                            )}
+                                        )}
+                                    </>
+                                ))}
                         </Card>
                     </div>
                 </div>

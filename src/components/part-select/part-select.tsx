@@ -9,6 +9,7 @@ import { countBy, flatten, map, size, sum } from 'lodash';
 import { PartSelectItem } from '../part-select-item/part-select-item';
 import partList from '../../../part-list.json';
 import { useMediaQuery } from 'react-responsive';
+import NameStudio from '../name-studio/name-studio';
 
 export interface PartSelectProps {
     className?: string;
@@ -50,6 +51,18 @@ export const PartSelect = ({ className, onPartAdded }: PartSelectProps) => {
             <Tabs vertical={!isMobile} large className={styles['part-select-tabs']}>
                 {/* @ts-ignore */}
                 {partList.sizes.map((size) => GetTab(size))}
+                <Tab
+                    key="name-studio"
+                    id="name-studio"
+                    title="Namen"
+                    icon={
+                        <div className={styles['tab-icon-wrapper']}>
+                            <Icon icon="annotation" className={styles['tab-icon']} />
+                        </div>
+                    }
+                    panel={<NameStudio />}
+                    panelClassName={styles['tab-panel']}
+                />
             </Tabs>
         </div>
     );
