@@ -6,6 +6,7 @@ import { find } from 'lodash';
 import { Printer } from './types';
 import { PrinterSettingsCard } from './components/printer-settings-card/printer-settings-card';
 import { Button } from '@blueprintjs/core';
+import { SlicerContextProvider } from './contexts/SlicerContext';
 
 type PrinterWrapperProps = {
     // Define your component props here
@@ -20,18 +21,12 @@ const PrinterWrapper: React.FC<PrinterWrapperProps> = (props) => {
         (p: Printer) => p.id == browserStore?.currentPrinter
     );
 
-
     if (printer) {
         return (
-            <PrinterContextProvider
-                printer={
-                    find(
-                        settings?.values?.printers,
-                        (p: Printer) => p.id == browserStore?.currentPrinter
-                    ) as Printer
-                }
-            >
-                <App />
+            <PrinterContextProvider printer={printer}>
+                <SlicerContextProvider printerType={printer.printerType}>
+                    <App />
+                </SlicerContextProvider>
             </PrinterContextProvider>
         );
     } else {

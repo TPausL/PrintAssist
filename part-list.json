@@ -1,1 +1,470 @@
-{"groups":[{"index":0,"name":"Fahrräder","id":"bike","icon":"bike.svg"},{"id":"dog","index":1,"name":"Hunde","icon":"dog.svg"},{"id":"car","index":2,"name":"Autos","icon":"car.svg"},{"id":"house","index":3,"name":"Häuser","icon":"house.svg"},{"id":"caravan","index":4,"name":"Wohnwagen","icon":"caravan.svg"},{"id":"anchor","index":6,"name":"Anker","icon":"anchor.svg"},{"id":"camper","index":5,"name":"Wohnwagen","icon":"camper.svg"},{"id":"wheel","index":7,"name":"Steuerrad","icon":"wheel.svg"},{"id":"motorbike","index":8,"name":"Motorrad","icon":"motorbike.svg"},{"id":"ghost","index":9,"name":"Gespenst"},{"id":"star","index":10,"name":"Stern","icon":"Stern.svg"},{"id":"tree","index":11,"name":"Tannenbaum","icon":"Tannenbaum.svg"},{"id":"angel","index":12,"name":"Engel","icon":"Engel.svg"},{"id":"moose","index":13,"name":"Elch","icon":"Elch.svg"},{"id":"heart","index":14,"name":"Herz","icon":"Herz.svg"},{"id":"snowflake","index":15,"name":"Schneeflocke","icon":"snowflake.svg"}],"sizes":[{"id":"klein","name":{"mobile":"Klein","desktop":"Klein - 3cm"},"index":0,"icon":{"icon":"arrows-vertical","size":16}},{"id":"mittel","name":{"mobile":"Mittel","desktop":"Mittel - 4cm"},"index":1,"icon":{"icon":"arrows-vertical","size":20}},{"id":"groß","name":{"mobile":"Groß","desktop":"Groß - 5cm"},"index":2,"icon":{"icon":"arrows-vertical","size":24}},{"id":"other","name":{"desktop":"Andere"},"index":3,"icon":{"icon":"more"}}],"parts":[{"name":"kleines Fahrrad","size":"klein","file":"bike_small.stl","price":0.02,"weight":0.77,"time":766,"group":"bike"},{"name":"mittleres Fahrrad","size":"mittel","file":"bike_middle.stl","price":0.04,"weight":1.4,"time":1268,"group":"bike"},{"name":"großes Fahrrad","size":"groß","file":"bike_large.stl","price":0.05,"weight":2.16,"time":1779,"group":"bike"},{"name":"kleiner Hund","size":"klein","file":"dog_small.stl","price":0.04,"weight":1.43,"time":918,"group":"dog"},{"group":"dog","name":"mittlere Hund","size":"mittel","file":"dog_middle.stl","price":0.06,"weight":2.34,"time":1366},{"name":"großer Hund","size":"groß","file":"dog_large.stl","price":0.09,"weight":3.47,"time":1912,"group":"dog"},{"size":"klein","file":"car_small.stl","price":0.02,"weight":0.79,"time":601,"name":"kleines Auto","group":"car"},{"size":"mittel","file":"car_middle.stl","price":0.04,"weight":1.4,"time":979,"name":"mittleres Auto","group":"car"},{"size":"groß","file":"car_large.stl","price":0.06,"weight":2.23,"time":1390,"name":"großes Auto","group":"car"},{"size":"klein","file":"house_small.stl","price":0.02,"weight":0.96,"time":690,"name":"kleines Haus","group":"house"},{"size":"mittel","file":"house_middle.stl","price":0.05,"weight":1.78,"time":1150,"name":"mittleres Haus","group":"house"},{"size":"groß","file":"house_large.stl","price":0.07,"weight":2.83,"time":1643,"name":"großes Haus","group":"house"},{"size":"mittel","file":"caravan_middle.stl","price":0.04,"weight":1.68,"time":1115,"name":"mittlerer Wohnwagen","group":"caravan"},{"size":"groß","file":"caravan_large.stl","price":0.07,"weight":2.69,"time":1628,"name":"großer Wohnwagen","group":"caravan"},{"size":"klein","file":"anker_small.stl","price":0.02,"weight":0.77,"time":632,"name":"kleiner Anker","group":"anchor"},{"size":"mittel","file":"anker_middle.stl","price":0.04,"weight":1.4,"time":973,"name":"mittlerer Anker","group":"anchor"},{"size":"groß","file":"anker_large.stl","price":0.06,"weight":2.17,"time":1419,"name":"großer Anker","group":"anchor"},{"size":"mittel","file":"steuerrad_middle.stl","price":0.06,"weight":2.29,"time":1795,"name":"mittleres Steuerrad","group":"wheel"},{"size":"groß","file":"steuerrad_large.stl","price":0.09,"weight":3.64,"time":2629,"name":"großes Steuerrad","group":"wheel"},{"size":"mittel","file":"camper_middle.stl","price":0.04,"weight":1.62,"time":1151,"name":"mittleres Wohnmobil","group":"camper"},{"size":"groß","file":"camper_large.stl","price":0.07,"weight":2.69,"time":1710,"name":"großes Wohnmobil","group":"camper"},{"size":"groß","file":"motorbike_large.stl","price":0.06,"weight":2.44,"time":1660,"name":"großes Motorrad","group":"motorbike"},{"size":"mittel","file":"motorbike_middle.stl","price":0.04,"weight":1.49,"time":1143,"name":"mittleres Motorrad","group":"motorbike"},{"size":"klein","file":"motorbike_small.stl","price":0.02,"weight":0.83,"time":703,"name":"kleines Motorrad","group":"motorbike"},{"name":"erstauntes Gespenst","size":"other","file":"ghost_amazed.stl","price":0.1,"weight":3.81,"time":2648,"group":"ghost","custom":{"icon":"ghost_amazed.png"}},{"name":" glueckliches Gespenst","size":"other","file":"ghost_happy.3mf","price":0.1,"weight":3.82,"time":2663,"group":"ghost","custom":{"icon":"ghost_happy.png"}},{"name":"zorniges Gespenst","size":"other","file":"ghost_angry.stl","price":0.1,"weight":3.81,"time":2653,"group":"ghost","custom":{"icon":"ghost_angry.png"}},{"size":"klein","file":"baum_3.stl","price":0.02,"weight":0.91,"time":584,"name":"kleiner Tannenbaum","group":"tree"},{"size":"mittel","file":"baum_4.stl","price":0.04,"weight":1.67,"time":952,"name":"mitlerer Tannenbaum","group":"tree"},{"size":"groß","file":"baum_5.stl","price":0.07,"weight":2.61,"time":1377,"name":"großer Tannenbaum","group":"tree"},{"size":"mittel","file":"elch_4.stl","price":0.04,"weight":1.56,"time":1054,"name":"mittlerer Elch","group":"moose"},{"size":"groß","file":"elch_5.stl","price":0.06,"weight":2.55,"time":1552,"name":"großer Elch","group":"moose"},{"size":"klein","file":"engel_3.stl","price":0.03,"weight":1.16,"time":689,"name":"kleiner Engel","group":"angel"},{"size":"mittel","file":"engel_4.stl","price":0.05,"weight":2.1,"time":1130,"name":"mittlerer Engel","group":"angel"},{"size":"groß","file":"engel_5.stl","price":0.09,"weight":3.38,"time":1690,"name":"großer Engel","group":"angel"},{"size":"mittel","file":"stern_4.3mf","price":0.04,"weight":1.73,"time":957,"name":"4cm Stern","group":"star"},{"size":"groß","file":"stern_5.3mf","price":0.07,"weight":2.84,"time":1467,"name":"5cm Stern","group":"star"},{"size":"other","file":"stern_6.stl","price":0.11,"weight":4.16,"time":2003,"name":"6cm Stern","group":"star"},{"size":"other","file":"stern_7.stl","price":0.16,"weight":6.16,"time":2880,"name":"7cm Stern","group":"star"},{"size":"other","file":"stern_8.stl","price":0.21,"weight":8.25,"time":3664,"name":"8cm Stern","group":"star"},{"size":"mittel","file":"herz_4.stl","price":0.06,"weight":2.53,"time":1119,"name":"mittleres Herz","group":"heart"},{"size":"groß","file":"herz_5.stl","price":0.1,"weight":4.03,"time":1690,"name":"großes Herz","group":"heart"},{"size":"klein","file":"snowflake_small.stl","price":0.03,"weight":1.29,"time":1046,"name":"kleine Schneeflocke","group":"snowflake"},{"size":"mittel","file":"snowflake_middle.stl","price":0.06,"weight":2.32,"time":1658,"name":"mittlere Schneeflocke","group":"snowflake"},{"size":"groß","file":"snowflake_large.stl","price":0.09,"weight":3.73,"time":2367,"name":"große Schneeflocke","group":"snowflake"},{"size":"other","file":"sonderstern.stl","price":0.02,"weight":0.97,"time":591,"name":"Stern für Frau","group":"star"},{"size":"other","file":"circle.stl","price":0.04,"weight":1.59,"time":696,"name":"Farbkreis","group":""},{"size":"name","file":"bike_name.scad","group":"bike","name":"Fahrrad"}]}
+{
+  "groups": [
+    { "index": 0, "name": "Fahrräder", "id": "bike", "icon": "bike.svg" },
+    { "id": "dog", "index": 1, "name": "Hunde", "icon": "dog.svg" },
+    { "id": "car", "index": 2, "name": "Autos", "icon": "car.svg" },
+    { "id": "house", "index": 3, "name": "Häuser", "icon": "house.svg" },
+    { "id": "caravan", "index": 4, "name": "Wohnwagen", "icon": "caravan.svg" },
+    { "id": "anchor", "index": 6, "name": "Anker", "icon": "anchor.svg" },
+    { "id": "camper", "index": 5, "name": "Wohnwagen", "icon": "camper.svg" },
+    { "id": "wheel", "index": 7, "name": "Steuerrad", "icon": "wheel.svg" },
+    { "id": "motorbike", "index": 8, "name": "Motorrad", "icon": "motorbike.svg" },
+    { "id": "ghost", "index": 9, "name": "Gespenst" },
+    { "id": "star", "index": 10, "name": "Stern", "icon": "Stern.svg" },
+    { "id": "tree", "index": 11, "name": "Tannenbaum", "icon": "Tannenbaum.svg" },
+    { "id": "angel", "index": 12, "name": "Engel", "icon": "Engel.svg" },
+    { "id": "moose", "index": 13, "name": "Elch", "icon": "Elch.svg" },
+    { "id": "heart", "index": 14, "name": "Herz", "icon": "Herz.svg" },
+    { "id": "snowflake", "index": 15, "name": "Schneeflocke", "icon": "snowflake.svg" }
+  ],
+  "sizes": [
+    {
+      "id": "klein",
+      "name": { "mobile": "Klein", "desktop": "Klein - 3cm" },
+      "index": 0,
+      "icon": { "icon": "arrows-vertical", "size": 16 }
+    },
+    {
+      "id": "mittel",
+      "name": { "mobile": "Mittel", "desktop": "Mittel - 4cm" },
+      "index": 1,
+      "icon": { "icon": "arrows-vertical", "size": 20 }
+    },
+    {
+      "id": "groß",
+      "name": { "mobile": "Groß", "desktop": "Groß - 5cm" },
+      "index": 2,
+      "icon": { "icon": "arrows-vertical", "size": 24 }
+    },
+    { "id": "other", "name": { "desktop": "Andere" }, "index": 3, "icon": { "icon": "more" } }
+  ],
+  "parts": [
+    {
+      "name": "kleines Fahrrad",
+      "size": "klein",
+      "file": "bike_small.stl",
+      "price": 0.02,
+      "weight": 0.77,
+      "time": 766,
+      "group": "bike"
+    },
+    {
+      "name": "mittleres Fahrrad",
+      "size": "mittel",
+      "file": "bike_middle.stl",
+      "price": 0.04,
+      "weight": 1.4,
+      "time": 1268,
+      "group": "bike"
+    },
+    {
+      "name": "großes Fahrrad",
+      "size": "groß",
+      "file": "bike_large.stl",
+      "price": 0.05,
+      "weight": 2.16,
+      "time": 1779,
+      "group": "bike"
+    },
+    {
+      "name": "kleiner Hund",
+      "size": "klein",
+      "file": "dog_small.stl",
+      "price": 0.04,
+      "weight": 1.43,
+      "time": 918,
+      "group": "dog"
+    },
+    {
+      "group": "dog",
+      "name": "mittlere Hund",
+      "size": "mittel",
+      "file": "dog_middle.stl",
+      "price": 0.06,
+      "weight": 2.34,
+      "time": 1366
+    },
+    {
+      "name": "großer Hund",
+      "size": "groß",
+      "file": "dog_large.stl",
+      "price": 0.09,
+      "weight": 3.47,
+      "time": 1912,
+      "group": "dog"
+    },
+    {
+      "size": "klein",
+      "file": "car_small.stl",
+      "price": 0.02,
+      "weight": 0.79,
+      "time": 601,
+      "name": "kleines Auto",
+      "group": "car"
+    },
+    {
+      "size": "mittel",
+      "file": "car_middle.stl",
+      "price": 0.04,
+      "weight": 1.4,
+      "time": 979,
+      "name": "mittleres Auto",
+      "group": "car"
+    },
+    {
+      "size": "groß",
+      "file": "car_large.stl",
+      "price": 0.06,
+      "weight": 2.23,
+      "time": 1390,
+      "name": "großes Auto",
+      "group": "car"
+    },
+    {
+      "size": "klein",
+      "file": "house_small.stl",
+      "price": 0.02,
+      "weight": 0.96,
+      "time": 690,
+      "name": "kleines Haus",
+      "group": "house"
+    },
+    {
+      "size": "mittel",
+      "file": "house_middle.stl",
+      "price": 0.05,
+      "weight": 1.78,
+      "time": 1150,
+      "name": "mittleres Haus",
+      "group": "house"
+    },
+    {
+      "size": "groß",
+      "file": "house_large.stl",
+      "price": 0.07,
+      "weight": 2.83,
+      "time": 1643,
+      "name": "großes Haus",
+      "group": "house"
+    },
+    {
+      "size": "mittel",
+      "file": "caravan_middle.stl",
+      "price": 0.04,
+      "weight": 1.68,
+      "time": 1115,
+      "name": "mittlerer Wohnwagen",
+      "group": "caravan"
+    },
+    {
+      "size": "groß",
+      "file": "caravan_large.stl",
+      "price": 0.07,
+      "weight": 2.69,
+      "time": 1628,
+      "name": "großer Wohnwagen",
+      "group": "caravan"
+    },
+    {
+      "size": "klein",
+      "file": "anker_small.stl",
+      "price": 0.02,
+      "weight": 0.77,
+      "time": 632,
+      "name": "kleiner Anker",
+      "group": "anchor"
+    },
+    {
+      "size": "mittel",
+      "file": "anker_middle.stl",
+      "price": 0.04,
+      "weight": 1.4,
+      "time": 973,
+      "name": "mittlerer Anker",
+      "group": "anchor"
+    },
+    {
+      "size": "groß",
+      "file": "anker_large.stl",
+      "price": 0.06,
+      "weight": 2.17,
+      "time": 1419,
+      "name": "großer Anker",
+      "group": "anchor"
+    },
+    {
+      "size": "mittel",
+      "file": "steuerrad_middle.stl",
+      "price": 0.06,
+      "weight": 2.29,
+      "time": 1795,
+      "name": "mittleres Steuerrad",
+      "group": "wheel"
+    },
+    {
+      "size": "groß",
+      "file": "steuerrad_large.stl",
+      "price": 0.09,
+      "weight": 3.64,
+      "time": 2629,
+      "name": "großes Steuerrad",
+      "group": "wheel"
+    },
+    {
+      "size": "mittel",
+      "file": "camper_middle.stl",
+      "price": 0.04,
+      "weight": 1.62,
+      "time": 1151,
+      "name": "mittleres Wohnmobil",
+      "group": "camper"
+    },
+    {
+      "size": "groß",
+      "file": "camper_large.stl",
+      "price": 0.07,
+      "weight": 2.69,
+      "time": 1710,
+      "name": "großes Wohnmobil",
+      "group": "camper"
+    },
+    {
+      "size": "groß",
+      "file": "motorbike_large.stl",
+      "price": 0.06,
+      "weight": 2.44,
+      "time": 1660,
+      "name": "großes Motorrad",
+      "group": "motorbike"
+    },
+    {
+      "size": "mittel",
+      "file": "motorbike_middle.stl",
+      "price": 0.04,
+      "weight": 1.49,
+      "time": 1143,
+      "name": "mittleres Motorrad",
+      "group": "motorbike"
+    },
+    {
+      "size": "klein",
+      "file": "motorbike_small.stl",
+      "price": 0.02,
+      "weight": 0.83,
+      "time": 703,
+      "name": "kleines Motorrad",
+      "group": "motorbike"
+    },
+    {
+      "name": "erstauntes Gespenst",
+      "size": "other",
+      "file": "ghost_amazed.stl",
+      "price": 0.1,
+      "weight": 3.81,
+      "time": 2648,
+      "group": "ghost",
+      "custom": { "icon": "ghost_amazed.png" }
+    },
+    {
+      "name": " glueckliches Gespenst",
+      "size": "other",
+      "file": "ghost_happy.3mf",
+      "price": 0.1,
+      "weight": 3.82,
+      "time": 2663,
+      "group": "ghost",
+      "custom": { "icon": "ghost_happy.png" }
+    },
+    {
+      "name": "zorniges Gespenst",
+      "size": "other",
+      "file": "ghost_angry.stl",
+      "price": 0.1,
+      "weight": 3.81,
+      "time": 2653,
+      "group": "ghost",
+      "custom": { "icon": "ghost_angry.png" }
+    },
+    {
+      "size": "klein",
+      "file": "baum_3.stl",
+      "price": 0.02,
+      "weight": 0.91,
+      "time": 584,
+      "name": "kleiner Tannenbaum",
+      "group": "tree"
+    },
+    {
+      "size": "mittel",
+      "file": "baum_4.stl",
+      "price": 0.04,
+      "weight": 1.67,
+      "time": 952,
+      "name": "mitlerer Tannenbaum",
+      "group": "tree"
+    },
+    {
+      "size": "groß",
+      "file": "baum_5.stl",
+      "price": 0.07,
+      "weight": 2.61,
+      "time": 1377,
+      "name": "großer Tannenbaum",
+      "group": "tree"
+    },
+    {
+      "size": "mittel",
+      "file": "elch_4.stl",
+      "price": 0.04,
+      "weight": 1.56,
+      "time": 1054,
+      "name": "mittlerer Elch",
+      "group": "moose"
+    },
+    {
+      "size": "groß",
+      "file": "elch_5.stl",
+      "price": 0.06,
+      "weight": 2.55,
+      "time": 1552,
+      "name": "großer Elch",
+      "group": "moose"
+    },
+    {
+      "size": "klein",
+      "file": "engel_3.stl",
+      "price": 0.03,
+      "weight": 1.16,
+      "time": 689,
+      "name": "kleiner Engel",
+      "group": "angel"
+    },
+    {
+      "size": "mittel",
+      "file": "engel_4.stl",
+      "price": 0.05,
+      "weight": 2.1,
+      "time": 1130,
+      "name": "mittlerer Engel",
+      "group": "angel"
+    },
+    {
+      "size": "groß",
+      "file": "engel_5.stl",
+      "price": 0.09,
+      "weight": 3.38,
+      "time": 1690,
+      "name": "großer Engel",
+      "group": "angel"
+    },
+    {
+      "size": "mittel",
+      "file": "stern_4.3mf",
+      "price": 0.04,
+      "weight": 1.73,
+      "time": 957,
+      "name": "4cm Stern",
+      "group": "star"
+    },
+    {
+      "size": "groß",
+      "file": "stern_5.3mf",
+      "price": 0.07,
+      "weight": 2.84,
+      "time": 1467,
+      "name": "5cm Stern",
+      "group": "star"
+    },
+    {
+      "size": "other",
+      "file": "stern_6.stl",
+      "price": 0.11,
+      "weight": 4.16,
+      "time": 2003,
+      "name": "6cm Stern",
+      "group": "star"
+    },
+    {
+      "size": "other",
+      "file": "stern_7.stl",
+      "price": 0.16,
+      "weight": 6.16,
+      "time": 2880,
+      "name": "7cm Stern",
+      "group": "star"
+    },
+    {
+      "size": "other",
+      "file": "stern_8.stl",
+      "price": 0.21,
+      "weight": 8.25,
+      "time": 3664,
+      "name": "8cm Stern",
+      "group": "star"
+    },
+    {
+      "size": "mittel",
+      "file": "herz_4.stl",
+      "price": 0.06,
+      "weight": 2.53,
+      "time": 1119,
+      "name": "mittleres Herz",
+      "group": "heart"
+    },
+    {
+      "size": "groß",
+      "file": "herz_5.stl",
+      "price": 0.1,
+      "weight": 4.03,
+      "time": 1690,
+      "name": "großes Herz",
+      "group": "heart"
+    },
+    {
+      "size": "klein",
+      "file": "snowflake_small.stl",
+      "price": 0.03,
+      "weight": 1.29,
+      "time": 1046,
+      "name": "kleine Schneeflocke",
+      "group": "snowflake"
+    },
+    {
+      "size": "mittel",
+      "file": "snowflake_middle.stl",
+      "price": 0.06,
+      "weight": 2.32,
+      "time": 1658,
+      "name": "mittlere Schneeflocke",
+      "group": "snowflake"
+    },
+    {
+      "size": "groß",
+      "file": "snowflake_large.stl",
+      "price": 0.09,
+      "weight": 3.73,
+      "time": 2367,
+      "name": "große Schneeflocke",
+      "group": "snowflake"
+    },
+    {
+      "size": "other",
+      "file": "sonderstern.stl",
+      "price": 0.02,
+      "weight": 0.97,
+      "time": 591,
+      "name": "Stern für Frau",
+      "group": "star"
+    },
+    {
+      "size": "other",
+      "file": "circle.stl",
+      "price": 0.04,
+      "weight": 1.59,
+      "time": 696,
+      "name": "Farbkreis",
+      "group": ""
+    },
+    { "size": "name", "file": "bike_name.scad", "group": "bike", "name": "Fahrrad" }
+  ]
+}

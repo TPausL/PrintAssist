@@ -1,4 +1,7 @@
-FROM node:18-slim
+FROM openscad/openscad:dev AS openscad-builder
+FROM node:18-slim AS runner
+
+COPY --from=openscad-builder /usr/local/bin/openscad /usr/local/bin/openscad
 
 WORKDIR /usr/src/print-assist
 
