@@ -24,7 +24,7 @@ export const PartSelectMenu = ({ renderItem, ...rest }: ItemListRendererProps<Pa
                     </Text>
                     {renderItem &&
                         filter(partList.parts, (i) => i.group == g.id).map((p, i) =>
-                            renderItem(p, i + 1)
+                            renderItem(p as PartType, i + 1)
                         )}
                     {gi + 1 < partList.groups.length && <Divider className={styles.divider} />}
                 </>

@@ -23,7 +23,7 @@ const SVG = ({ group }: { group: string }) => {
  * To create custom component templates, see https://help.codux.com/kb/en/article/kb16522
  */
 export const PartSelectItem = ({ className, size, onPartAdded }: PartSelectItemProps) => {
-    const parts = partList.parts.filter((part) => part.size == size);
+    const parts = partList.parts.filter((part) => part.size == size) as PartType[];
     return (
         <React.Fragment key={size}>
             {parts.map((p, i) => {
@@ -32,7 +32,7 @@ export const PartSelectItem = ({ className, size, onPartAdded }: PartSelectItemP
                 return (
                     <Card
                         key={i}
-                        onClick={() => onPartAdded(p)}
+                        onClick={() => onPartAdded(p as PartType)}
                         interactive
                         elevation={1}
                         className={PartSelectItem_module['part-wrapper']}

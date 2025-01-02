@@ -13,7 +13,7 @@ export interface PartType {
         [key: string]: any;
     };
 }
-export type ListPart = Partial<PartType> & { count: number, file: string, name: string };
+export type ListPart = PartType & { count: number };
 export interface PartGroup {
     id: string;
     name: string;

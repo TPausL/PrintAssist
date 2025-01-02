@@ -3,6 +3,7 @@ import { filter, find, set, startCase } from 'lodash';
 import React, { useEffect, useRef } from 'react';
 import partList from '../../../part-list.json';
 import { usePrinter, useSlicer } from '../../contexts/contextHooks';
+import { ListPart, PartType } from '../../types';
 
 const NameStudio: React.FC = () => {
     const parts = filter(partList.parts, { size: 'name' });
@@ -27,7 +28,7 @@ const NameStudio: React.FC = () => {
             const stlPath = res.stlPath;
             if (!slice) return;
             const sliceRes = await slice(
-                [{ file: stlPath, name: parts[shape].name, count: 1 }],
+                [{ file: stlPath, name: parts[shape].name, count: 1 } as ListPart],
                 undefined,
                 { height: 0.05 * size * 10 + 1.5 + 0.1 }
             );
