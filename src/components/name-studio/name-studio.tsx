@@ -8,8 +8,8 @@ import { ListPart, PartType } from '../../types';
 const NameStudio: React.FC = () => {
     const parts = filter(partList.parts, { size: 'name' });
     const [size, setSize] = React.useState(4);
-    const [name, setName] = React.useState('Timo');
-    const [shape, setShape] = React.useState(1);
+    const [name, setName] = React.useState('');
+    const [shape, setShape] = React.useState(-1);
     const [valid, setValid] = React.useState(false);
 
     const { render, slice } = useSlicer() ?? {};
