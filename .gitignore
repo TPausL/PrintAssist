@@ -30,4 +30,5 @@ db/**
 
 #slicer generated
 models/generated
+models/rendered
 *.gcode
