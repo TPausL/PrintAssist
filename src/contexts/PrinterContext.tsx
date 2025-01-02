@@ -9,7 +9,6 @@ import BaseService from '../services/unimplemented';
 
 export interface PrinterContextType {
     print(gcode: string): void;
-    slice(parts: ListPart[], signal?: AbortSignal): Promise<string>;
     heat(temp: number): void;
     sendCommands(commands: string[]): void;
     unload(): void;
@@ -51,14 +50,6 @@ export function PrinterContextProvider(props: { children: React.ReactNode; print
 
     const service: BaseService = getService(props.printer);
 
-    const slice = async (parts: ListPart[], signal: AbortSignal) => {
-        const res = await axios.post(
-            '/slice',
-            { parts, printerType: props.printer.printerType },
-            { responseType: 'text', signal }
-        );
-        return res?.data;
-    };
     const extrude = async (amount: number) => {
         try {
             service.extrude(amount);
@@ -143,7 +134,6 @@ export function PrinterContextProvider(props: { children: React.ReactNode; print
             value={{
                 heat,
                 print,
-                slice,
                 lightState: light,
                 toggleLight,
                 extrude,

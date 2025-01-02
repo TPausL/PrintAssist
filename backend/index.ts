@@ -6,12 +6,13 @@ import bodyParser from 'body-parser';
 import {
     Printer,
     PrinterType,
+    RenderRequest,
     ServerType,
     Settings,
     SliceRequest,
     TypedRequestBody,
 } from '../src/types';
-import _, { uniqueId } from 'lodash';
+import _ from 'lodash';
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
@@ -34,6 +35,17 @@ app.use((req, res, next) => {
 });
 app.use(express.json());
 
+app.post('/render', async (req: RenderRequest, res) => {
+    if (!fs.existsSync('./models/rendered')) await mkdirAsync('./models/rendered');
+    const var_str = map(req.body.vars, (v, k) => { return typeof v === "string" || v instanceof String ? `-D '${k}="${v}"'` : `-D '${k}=${v}'` }).join(' ');
+    console.log("vars: ", var_str);
+    const stdout = await execAsync(
+        `openscad -o ./models/rendered/${req.body.fileName.split('.')[0]}.stl ./models/${req.body.fileName} ${var_str}`
+    );
+    console.log(stdout);
+    return res.send({ success: true, stlPath: `rendered/${req.body.fileName.split('.')[0]}.stl` });
+});
+
 app.post('/slice', async (req: SliceRequest, res) => {
     try {
         if (!fs.existsSync('./models/generated')) await mkdirAsync('./models/generated');
@@ -52,19 +64,27 @@ app.post('/slice', async (req: SliceRequest, res) => {
         );
         console.log(files);
         const r = await execAsync(
-            `prusa-slicer --load config.${
-                req.body.printerType
+            `prusa-slicer --load config.${req.body.printerType
             }.ini -o ./models/generated/out.gcode -g -m ${files.join(' ')}`
         );
         console.log(r);
+        if (req.body.colorChange) {
+            let gcode = fs.readFileSync('./models/generated/out.gcode').toString();
+            let regex = new RegExp(String.raw`;<LAYER_END:${req.body.colorChange.height}>`, 'g');
+            console.log(gcode.match(regex));
+            gcode = gcode.replace(regex, `M600`);
+            fs.writeFileSync('./models/generated/out.gcode', gcode);
+        }
         res.sendFile(path.join(process.cwd(), '/models/generated/out.gcode'));
     } catch (e) {
+        console.log(e)
         if (e.stderr.includes('could not fit')) {
             res.status(413).send('Die Teile passen nicht auf das Druckbett!');
         }
         if (e.stderr.includes('No such file or directory')) {
             res.status(404).send('Die Datei wurde nicht gefunden!');
         }
+        res.status(500).send('Ein Fehler ist aufgetreten!');
     }
 });
 

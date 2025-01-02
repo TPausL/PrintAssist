@@ -1,0 +1,11 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: DockerfileDev
+    ports:
+      - 3000:3000
+      - 24678:24678
+    volumes:
+      - .:/usr/src/print-assist

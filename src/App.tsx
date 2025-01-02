@@ -19,7 +19,7 @@ import { PartSelect } from './components/part-select/part-select';
 import { ListPart, PartType } from './types';
 
 import { SettingsDialog } from './components/settings-dialog/settings-dialog';
-import { usePrinter } from './contexts/contextHooks';
+import { usePrinter, useSlicer } from './contexts/contextHooks';
 import { extractDataFromGcode, toast } from './utils';
 import { AxiosError } from 'axios';
 import { ConfirmDialog } from './components/confirm-dialog/confirm-dialog';
@@ -36,6 +36,7 @@ function App() {
     const [confirmOpen, setConfirmOpen] = useState<boolean>(false);
     const [printing, setPrinting] = useState<boolean>(false);
     const printer = usePrinter();
+    const { slice } = useSlicer() ?? {};
     const shouldSlice = useRef<boolean>(false);
     const failCount = useRef<number>(0);
     const isMobile = useMediaQuery({ query: '(max-width: 1224px)' });
@@ -47,19 +48,20 @@ function App() {
             setSlicing(() => true);
             controllerRef.current?.abort();
             controllerRef.current = new AbortController();
-            printer
-                ?.slice(parts, controllerRef.current?.signal)
-                .then((res) => {
-                    setSlicing(() => false);
-                    setGcode(res);
-                })
-                .finally(() => {})
-                .catch((err: AxiosError) => {
-                    if (err.code !== 'ERR_CANCELED') {
-                        toast('Error slicing', 'danger');
-                        setSlicing(false);
-                    }
-                });
+            if (slice) {
+                slice(parts, controllerRef.current?.signal)
+                    .then((res) => {
+                        setSlicing(() => false);
+                        setGcode(res);
+                    })
+                    .finally(() => {})
+                    .catch((err: AxiosError) => {
+                        if (err.code !== 'ERR_CANCELED') {
+                            toast('Error slicing', 'danger');
+                            setSlicing(false);
+                        }
+                    });
+            }
         }
     }, [parts]);
 
@@ -71,7 +73,6 @@ function App() {
     }, [printer?.selectedPrinter.id]);
 
     console.log(printer?.selectedPrinter.name, printer?.live);
-    const temptest = Boolean(printer?.temperature && printer?.temperature >= 195);
     return (
         <div className={styles.App}>
             <Navbar fixedToTop>
@@ -144,7 +145,10 @@ function App() {
                                                             ),
                                                         count: (p, c) => {
                                                             const i = parts.indexOf(p);
-                                                            parts[i] = { ...parts[i], count: c };
+                                                            parts[i] = {
+                                                                ...parts[i],
+                                                                count: c,
+                                                            };
                                                             setParts([...parts]);
                                                         },
                                                     }}
@@ -237,7 +241,6 @@ function App() {
                     </div>
                 </div>
             </div>
-
             <SettingsDialog isOpen={settingsOpen} onClosed={() => setSettingsOpen(false)} />
             <ConfirmDialog
                 isOpen={confirmOpen}

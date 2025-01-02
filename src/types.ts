@@ -13,7 +13,7 @@ export interface PartType {
         [key: string]: any;
     };
 }
-export type ListPart = PartType & { count: number };
+export type ListPart = Partial<PartType> & { count: number, file: string, name: string };
 export interface PartGroup {
     id: string;
     name: string;
@@ -73,10 +73,25 @@ export interface TypedRequestBody<T> extends Express.Request {
     body: T;
 }
 
+export interface ColorChange {
+    height: number;
+}
+
 export type SliceRequest = TypedRequestBody<{
     parts: ListPart[];
     printerType: PrinterType;
+    colorChange?: ColorChange;
 }>;
+
+export type RenderRequest = TypedRequestBody<{
+    fileName: string;
+    vars: Record<string, unknown>;
+}>;
+
+export type RenderResult = {
+    success: boolean;
+    stlPath: string;
+};
 
 export type Spool = {
     bedTemperature: number;

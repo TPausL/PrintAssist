@@ -4,35 +4,44 @@ import moment from 'moment';
 const exec = util.promisify((await import('node:child_process')).exec);
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import _ from 'lodash';
-const { map } = _;
+const { map, filter, remove } = _;
 
 try {
-    await rm("./models/generated", { recursive: true, force: true });
-        const createDir = await mkdir("./models/generated", { recursive: true });
-    
+    await rm('./models/generated', { recursive: true, force: true });
+    const createDir = await mkdir('./models/generated', { recursive: true });
+
     console.log(`created ${createDir}`);
 } catch (err) {
     console.error(err.message);
 }
 
+const parts = partList.parts;
+const nonSliceable = remove(parts, (p) => !/\.(stl|3mf)$/.test(p.file));
+
 const newParts = await Promise.all(
-    map(partList.parts, (p, i) => {
-        return new Promise((resolve) =>
-            setTimeout(async () => {
-                //const p = partList.parts[i];
-                const model_file = './models/' + p.file;
-                const gcode_file = './models/generated/' + p.file.split('.')[0] + '.gcode';
-                console.log(model_file);
-                const { stdout } = await exec(
-                    `prusa-slicer -o ${gcode_file} -g --load config.mk3s.ini ` + model_file
-                );
-                const gcode = await readFile(gcode_file, { encoding: 'utf8' });
-                resolve({ ...p, ...extractDataFromString(gcode) });
-            }, i * 500)
-        );
-    })
+    map(
+        filter(parts, (p) => /\.(stl|3mf)$/.test(p.file)),
+        (p, i) => {
+            return new Promise((resolve) =>
+                setTimeout(async () => {
+                    //const p = partList.parts[i];
+                    const model_file = './models/' + p.file;
+                    const gcode_file = './models/generated/' + p.file.split('.')[0] + '.gcode';
+                    console.log(model_file);
+                    const { stdout } = await exec(
+                        `prusa-slicer -o ${gcode_file} -g --load config.mk3s.ini ` + model_file
+                    );
+                    const gcode = await readFile(gcode_file, { encoding: 'utf8' });
+                    resolve({ ...p, ...extractDataFromString(gcode) });
+                }, i * 500)
+            );
+        }
+    )
 );
-writeFile('./part-list.json', JSON.stringify({ ...partList, parts: newParts }));
+writeFile(
+    './part-list.json',
+    JSON.stringify({ ...partList, parts: [...newParts, ...nonSliceable] })
+);
 function extractDataFromString(str) {
     const timeRegex = /estimated printing time \(normal mode\) = (\d+h)? ?(\d+m)? ?(\d+s)?/;
     const weightRegex = /total filament used \[g\] = (\d+\.\d+)/;
