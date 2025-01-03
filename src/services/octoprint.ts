@@ -13,6 +13,7 @@ export default class OctoPrintService extends BaseService {
                 Authorization: `Bearer ${printer.api_key}`,
                 'Access-Control-Allow-Origin': '*',
             },
+            withCredentials: false,
         };
     }
 
