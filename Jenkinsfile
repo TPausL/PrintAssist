@@ -1,7 +1,7 @@
 @Library("teckdigital") _
 def appName = "print-assist"
 def localBranchToGitopsValuesPath = [
-    'main': 'print-assist/deployment.yml',
+    'main': 'print-assist/workloads/deployment.yml',
 ]
 
 pipeline {
