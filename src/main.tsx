@@ -12,6 +12,9 @@ import moment from 'moment';
 import 'moment/dist/locale/de';
 import { BrowserStoreContextProvider } from './contexts/BrowserStoreContext';
 import PrinterWrapper from './PrinterWrapper';
+import axios from 'axios';
+
+axios.defaults.withCredentials = true;
 
 moment.locale('de');
 
