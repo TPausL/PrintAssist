@@ -474,6 +474,33 @@
       "name": "Osterei",
       "group": ""
     },
+    {
+      "size": "klein",
+      "file": "fish_3.stl",
+      "price": 0.04,
+      "weight": 1.59,
+      "time": 696,
+      "name": "kleiner Fisch",
+      "group": ""
+    },
+    {
+      "size": "mittel",
+      "file": "fish_4.stl",
+      "price": 0.04,
+      "weight": 1.59,
+      "time": 696,
+      "name": "mittlerer Fisch",
+      "group": ""
+    },
+    {
+      "size": "groß",
+      "file": "fish_5.stl",
+      "price": 0.04,
+      "weight": 1.59,
+      "time": 696,
+      "name": "großer Fisch",
+      "group": ""
+    },
     { "size": "name", "file": "bike_name.scad", "group": "bike", "name": "Fahrrad" }
   ]
 }
